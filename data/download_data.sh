@@ -11,3 +11,7 @@ mkdir -p $SCRIPT_DIR/epirecipes
 curl -L -o $SCRIPT_DIR/epirecipes/epirecipes.zip\
   https://www.kaggle.com/api/v1/datasets/download/hugodarwood/epirecipes
 unzip $SCRIPT_DIR/epirecipes/epirecipes.zip -d $SCRIPT_DIR/epirecipes/
+
+mkdir -p $SCRIPT_DIR/NER_data
+curl -L -o $SCRIPT_DIR/NER_data/TASTEset.csv\
+    https://raw.githubusercontent.com/taisti/TASTEset/refs/heads/main/data/TASTEset.csv
