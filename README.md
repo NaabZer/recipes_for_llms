@@ -15,8 +15,15 @@ Basically creating one directional relations between ingredients, their prepared
 
 **TODO**:
 - [x] Set up [doccano](https://github.com/doccano/doccano) for tagging
-- [ ] Train a NER tagging model using [spaCy](https://github.com/explosion/spaCy)
-- [ ] Set up automatic tagging API for doccano using said NER model
+- [X] Train a NER tagging model using [spaCy](https://github.com/explosion/spaCy)
+- [ ] Set up MLops pipeline for tagging/training/serving NER model
+    - [ ] Make MLflow training work to continiuously improve NER model
+    - [ ] Set up Prefect orchestration
+        - [ ] Periodically check for new labeling data
+        - [ ] Download and preprocess data
+        - [ ] Train NER model using spaCy/MLflow
+        - [ ] Serve new model to API
+    - [ ] Set up automatic tagging API for doccano using served NER model
 - [ ] Create baselines for evaluations:
     - [ ] A basic Bag-of-Words search/database
     - [ ] Pre-trained embeddings using some model, e.g. BERT
