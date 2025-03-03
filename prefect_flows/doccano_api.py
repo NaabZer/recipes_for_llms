@@ -55,7 +55,7 @@ class Doccano_API:
         data = {"taskId": task_id}
         response = self.get(url, params=data, stream=True)
         dir_path = pathlib.Path(".")
-        now = datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
+        now = datetime.today().strftime('%Y-%m-%d_%H_%M_%S')
         file_name = f"doccano_{project_id}_{now}.zip"
         file_path = dir_path / file_name
         with file_path.open("wb") as f:
