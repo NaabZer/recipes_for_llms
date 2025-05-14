@@ -15,7 +15,7 @@ Basically creating one directional relations between ingredients, their prepared
 
 **TODO**:
 - [x] Set up [doccano](https://github.com/doccano/doccano) for tagging
-- [ ] Set up [label-studio](https://github.com/HumanSignal/label-studio) because doccano doesn't work properly
+- [X] Set up [label-studio](https://github.com/HumanSignal/label-studio) because doccano doesn't work properly
 - [X] Train a NER tagging model using [spaCy](https://github.com/explosion/spaCy)
 - [ ] Set up MLops pipeline for tagging/training/serving NER model
     - [X] Make MLflow training work to continiuously improve NER model
