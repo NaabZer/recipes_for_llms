@@ -4,27 +4,76 @@ import os
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from pydantic import BaseModel
+from typing import List
 
 load_dotenv()
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URL"))
 
 model_url = "models:/recipe_NER@prod"
 nlp = mlflow.spacy.load_model(model_uri=model_url)
+model_info = mlflow.models.get_model_info(model_uri=model_url)
 
 app = FastAPI()
 
 
-class ApiInput(BaseModel):
+class ApiText(BaseModel):
     text: str
 
 
-@app.post("/")
+class ApiData(BaseModel):
+    data: ApiText
+
+
+class ApiInput(BaseModel):
+    tasks: List[ApiData]
+
+
+@app.get("/metrics")
+def metrics():
+    return {}
+
+
+@app.post("/setup")
+def setup():
+    return {"model_version": model_info.run_id}
+
+
+@app.post("/webhook")
+def webhook():
+    return {"result": "test", "status": "ok"}
+
+
+@app.get("/")
+@app.get("/health")
+def health():
+    return {"status": "UP"}
+
+
+@app.post("/predict")
 def tag_NER(api_input: ApiInput):
-    out = nlp(api_input.text)
-    label = []
-    for t in out:
-        if t.ent_type_:
-            label_inner = [t.idx, t.idx + len(t), t.ent_type_]
-            label.append(label_inner)
-    out_jsonl = {"text": api_input.text, "label": label}
-    return out_jsonl
+    results = []
+    for task in api_input.tasks:
+        text = task.data.text
+        out = nlp(text)
+        result = []
+        for t in out:
+            if t.ent_type_:
+                value = {
+                        "start": t.idx,
+                        "end": t.idx + len(t),
+                        "labels": t.ent_type_,
+                        "text": text[int(t.idx):int(t.idx + len(t))]
+                        }
+                result.append({
+                    "value": value,
+                    "from_name": "label",
+                    "to_name": "text",
+                    "type": "labels",
+                    })
+        out_json = {
+                "score": 0.5,  # TODO: Can we get some score from spacy?
+                "model_version": model_info.run_id,
+                "result": result
+                }
+        results.append(out_json)
+    return {"results": results}
