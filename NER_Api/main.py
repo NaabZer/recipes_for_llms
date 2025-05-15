@@ -61,7 +61,7 @@ def tag_NER(api_input: ApiInput):
                 value = {
                         "start": t.idx,
                         "end": t.idx + len(t),
-                        "labels": t.ent_type_,
+                        "labels": [t.ent_type_],
                         "text": text[int(t.idx):int(t.idx + len(t))]
                         }
                 result.append({
