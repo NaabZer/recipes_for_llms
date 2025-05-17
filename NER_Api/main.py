@@ -56,20 +56,20 @@ def tag_NER(api_input: ApiInput):
         text = task.data.text
         out = nlp(text)
         result = []
-        for t in out:
-            if t.ent_type_:
-                value = {
-                        "start": t.idx,
-                        "end": t.idx + len(t),
-                        "labels": [t.ent_type_],
-                        "text": text[int(t.idx):int(t.idx + len(t))]
-                        }
-                result.append({
-                    "value": value,
-                    "from_name": "label",
-                    "to_name": "text",
-                    "type": "labels",
-                    })
+        for t in out.ents:
+            value = {
+                "start": t.start_char,
+                "end": t.end_char,
+                "labels": [t.label_],
+                "text": str(t)
+                }
+            print(value)
+            result.append({
+                "value": value,
+                "from_name": "label",
+                "to_name": "text",
+                "type": "labels",
+                })
         out_json = {
                 "score": 0.5,  # TODO: Can we get some score from spacy?
                 "model_version": model_info.run_id,
