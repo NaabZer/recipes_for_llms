@@ -1,0 +1,47 @@
+# docker-compose.yml
+
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    command: mlflow server --backend-store-uri /data --default-artifact-root s3://${MLFLOW_BUCKET} --host 0.0.0.0 --serve-artifacts
+    restart: always
+    volumes: 
+      - mlflow-data:/data
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL}
+      - MLFLOW_BUCKET=${MLFLOW_BUCKET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  labelstudio:
+    image: heartexlabs/label-studio:latest
+    restart: always
+    volumes: 
+      - ls-data:/label-studio/data
+    ports:
+      - "8080:8080"
+    #env_file:
+    #  - .env
+    #environment:
+    #  - LABEL_STUDIO_HOST=${LABEL_STUDIO_HOST}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  ner-api:
+    build: ./NER_Api
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
+    environment:
+      - MLFLOW_TRACKING_URL=${MLFLOW_TRACKING_URL}
+
+
+volumes:
+  mlflow-data:
+  ls-data:
