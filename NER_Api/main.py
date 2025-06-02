@@ -28,6 +28,14 @@ class ApiInput(BaseModel):
     tasks: List[ApiData]
 
 
+@app.post("/reload")
+def reload():
+    global nlp, model_info
+    nlp = mlflow.spacy.load_model(model_uri=model_url)
+    model_info = mlflow.models.get_model_info(model_uri=model_url)
+    return {}
+
+
 @app.get("/metrics")
 def metrics():
     return {}
