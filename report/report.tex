@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+\title{Natural Language Processing for efficient recipe retrieval}
+\date{}
+\author{me}
+
+\setlength\parindent{0pt}
+\setlength\parskip{\baselineskip}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\section{Background}
+
+\section{Method}
+\subsection{Baselines}
+\begin{itemize}
+    \item BOW (tfidf)
+    \item BERT embeddings
+\end{itemize}
+
+\subsection{Better methods}
+\begin{itemize}
+    \item BOW using NER filtering
+    \item NER based parquet + duckdb database with custom scoring function
+    \item GraphDB database (this most likely also needs a scoring function)
+\end{itemize}
+
+\subsection{Evaluation Tasks}
+\subsubsection{Query Speed}
+To serve large langue models with a large amount of users, we need an efficient
+system for querying our data, therefore query speed is an important factor in
+deciding which method would be optimal for a specific use-case.
+
+Since the models using only embeddings would require a cutoff point for
+maximum number of results, different max numbers should be tested.
+
+The different tests you could perform, while measuring query speed are the
+following:
+\begin{itemize}
+    \item \textbf{A ``normal'' query} --- A query of three to four ingredients,
+        likely to be what most users would input.
+    \item \textbf{A very broad query} --- Something like ``salt'', and see how it
+        handles a query that should find a lot of results.
+    \item \textbf{A very specfic query} --- A very specific query that should
+        return one or two recipies only.
+    \item \textbf{A completely random query} --- A query of random ingredients,
+        this should most likely not return anything at all.
+\end{itemize}
+
+\subsection{Ranking}
+We need some way to perform ranking of the different models.
+When using embeddings ranking gets trivial because we will use similarity
+measures as our mean of searching either way.
+A problem arise when we want to use normal database queries, as there is no way
+to rank based of queries.
+We can ofcourse sort by something like recipe rating, giving us the highest
+rated recipes rather than the most relevant recipes (highest rated might be most
+relevant).
+
+An idea for how to rank the standar query version, is to use a score, similar to
+tfidf for how many of the ingredients that is in the recipe, is in the query,
+and negative score for any ingridient in the recipe that is not in the query.
+For example if you have something like ``chopped tomato, parsley and tomato
+paste'' as the query, you would add to the score for tomato, parsley and tomato
+paste and any other ingredient would reduce the score.
+The way something similar to tfidf can be used, is to decide how much the score
+is affected by an ingredient, something like salt and pepper should not affect
+the score too much, as these are prevalent in a lot of recipes and most likely
+not something you would add to your query at all.
+Using this, we could also assign scores to preparation steps, but this might be
+redundant, as we will remove any recipe which does not contain the preparation
+present in our query, and the point is you should be able to perform the
+preparations if it is not already prepared.
+In the above example, we would not find any recipes containing non-chopped
+tomatoes, and if they are cooked as well, we can just cook our chopped tomatoes.
+
+This does however raise the question, is a tfidf that also make use of our NER
+tags to filter out results we do not want to see, sufficient? Maybe even more
+efficient?
+I also want to create a model using tfidf and filtering methods.
+\subsection{NER Model}
+\subsubsection{Labeling}
+
+\end{document}
+
