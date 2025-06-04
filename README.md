@@ -26,7 +26,7 @@ Basically creating one directional relations between ingredients, their prepared
         - [ ] Serve new model to API
     - [X] Set up automatic tagging API for doccano using served NER model
 - [ ] Create baselines for evaluations:
-    - [ ] A basic Bag-of-Words search/database
+    - [X] A basic Bag-of-Words search/database
     - [ ] Pre-trained embeddings using some model, e.g. BERT
 - [ ] Create evaluation tasks
     - [ ] Find a subset of recipes where a specific query would find the recipe to allow evaluation using metrics
