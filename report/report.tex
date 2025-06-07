@@ -1,19 +1,50 @@
-\documentclass{article}
+\documentclass[11pt]{article}
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+\usepackage[review]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+
+% For proper rendering and hyphenation of words containing Latin characters (including in bib files)
+\usepackage[T1]{fontenc}
+% For Vietnamese characters
+% \usepackage[T5]{fontenc}
+% See https://www.latex-project.org/help/documentation/encguide.pdf for other character sets
+
+% This assumes your files are encoded as UTF8
+\usepackage[utf8]{inputenc}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+% This is also not strictly necessary, and may be commented out.
+% However, it will improve the aesthetics of text in
+% the typewriter font.
+\usepackage{inconsolata}
+
+%Including images in your LaTeX document requires adding
+%additional package(s)
+\usepackage{graphicx}
+
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 
+
 \title{Natural Language Processing for efficient recipe retrieval}
 \date{}
-\author{me}
-
-\setlength\parindent{0pt}
-\setlength\parskip{\baselineskip}
+\author{Anton Gefvert \\ Linköping University}
 
 \begin{document}
-
 \maketitle
+\begin{abstract}
+    lorem ipsum
+\end{abstract}
 
 \section{Introduction}
 
@@ -34,19 +65,75 @@
 \end{itemize}
 
 \subsection{Evaluation Tasks}
+To see if the developed models performs the task of recipe retrieval from
+ingredients, some evaluation tasks are defined.
+Two types of task is used in this paper, model performance and query speed.
+The first one to evaluate if the developed method works well, specifically in
+relation the the baselines.
+The second one to evaluate the speed of which these queries are handled, to
+gauge how suitable they are for different systems.
+For example, in a load heavy system that require low response times, model
+performance might be compromisable as long as the query speed remains low.
+
+\subsubsection{Model Performance}\label{sec:modelperfomance}
+To evaluate the model performance, four different evaluation methods were
+created.
+All the tasks are evaluated using \emph{Accuray},
+\emph{Mean Reciprocal Rank (MRR)}, \emph{Recall@5}, to give a fair evaluation to
+a search/ranking task.
+
+\paragraph{Identity Query} --- This tasks takes x amounts of random recipes
+and for each recipe, the ingredient list is inputted and the recipe should be
+returned.
+This task is used as a sanity check, as this tasks should in theory create the
+same embeddings for any embedding models, such as the TF-IDF baseline, and thus
+give those models 100\% accuracy.
+
+\paragraph{LLM Processed Queries} --- This task takes x amounts of random
+recipes, and for each recipe, inputs the ingredient list to a LLM with several
+prompts to rephrase the input.
+This is used to mimic a more human like input, while leveraging the power of
+LLMs to quickly generate a larger dataset than e human annotated one.
+For each recipe, the following prompts are used, and each promp is then used as
+its own evaluation task:
+\begin{itemize}
+    \item \emph{``Summarize this ingredient list into a short query a person might type
+        into google''}; This returns a more human-esque way of inputting a
+        recipe, rather than a list of ingredients and instructions.
+    \item \emph{``Extract only the main food items and their preparations from
+        this list''}; This returns a list that is more akin to the query a
+        person (or program) is more likely to input to the model.
+    \item \emph{``I have the following ingredients and some of their
+            preparations. List the most important ingredients and their
+        preparations I should use to search a recipe with''}
+\end{itemize}
+
+\paragraph{Human Processed Queries} --- This task takes y (smaller than x)
+amounts of random recipes, and for each recipe, the author processed these list
+into a more human like input.
+For each list of ingredients, two different processing methods were used as
+described below:
+\begin{itemize}
+    \item \emph{A list of ingredients}; for example ``Cucumber,
+        sun-dried tomatoes, chopped onion and ground beef'', this is to mimic a
+        sample input of ``I have X food, what can I cook with it''
+    \item \emph{Specifc preparation}; for example ``finely chopped onion,
+        braised until browned; toasted ground sesame seeds'', this is to really
+        test out the capabilities of the \emph{preparation} NER tag processing.
+\end{itemize}
+
 \subsubsection{Query Speed}
 To serve large langue models with a large amount of users, we need an efficient
 system for querying our data, therefore query speed is an important factor in
 deciding which method would be optimal for a specific use-case.
 
 Since the models using only embeddings would require a cutoff point for
-maximum number of results, different max numbers should be tested.
+maximum number of results, different max number of results should be tested.
 
-The different tests you could perform, while measuring query speed are the
-following:
+Query speeds are measured on all the tasks described in
+Section~\ref{sec:modelperfomance}, as well as some custom query tasks
+specifically constructed to test potentially slow queries, as described below:
 \begin{itemize}
-    \item \textbf{A ``normal'' query} --- A query of three to four ingredients,
-        likely to be what most users would input.
     \item \textbf{A very broad query} --- Something like ``salt'', and see how it
         handles a query that should find a lot of results.
     \item \textbf{A very specfic query} --- A very specific query that should
