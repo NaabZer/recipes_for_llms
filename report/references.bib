@@ -65,6 +65,17 @@
     url="http://www.ncbi.nlm.nih.gov/pubmed/34383671"
 }
 
+#https://arxiv.org/abs/2402.17447
+@misc{deepLearninNERModelRecipes,
+      title={Deep Learning Based Named Entity Recognition Models for Recipes}, 
+      author={Mansi Goel and Ayush Agarwal and Shubham Agrawal and Janak Kapuriya and Akhil Vamshi Konam and Rishabh Gupta and Shrey Rastogi and Niharika and Ganesh Bagler},
+      year={2024},
+      eprint={2402.17447},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2402.17447}, 
+}
+
 
 #### ---- ASSYMETRY ---- #####
 # https://ojs.aaai.org/index.php/AAAI/article/view/10878
@@ -94,4 +105,46 @@
     keywords = {high-order proximity, graph embedding, directed graph, asymmetric transitivity},
     location = {San Francisco, California, USA},
     series = {KDD '16}
+}
+
+
+#### ---- RANKING ---- #####
+#https://dl-acm-org.e.bibl.liu.se/doi/abs/10.1145/2682862.2682863 
+@inproceedings{improvmenetsBM25,
+    author = {Trotman, Andrew and Puurula, Antti and Burgess, Blake},
+    title = {Improvements to BM25 and Language Models Examined},
+    year = {2014},
+    isbn = {9781450330008},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/2682862.2682863},
+    doi = {10.1145/2682862.2682863},
+    abstract = {Recent work on search engine ranking functions report improvements on BM25 and Language Models with Dirichlet Smoothing. In this investigation 9 recent ranking functions (BM25, BM25+, BM25T, BM25-adpt, BM25L, TF1°δ°p\texttimes{}ID, LM-DS, LM-PYP, and LM-PYP-TFIDF) are compared by training on the INEX 2009 Wikipedia collection and testing on INEX 2010 and 9 TREC collections. We find that once trained (using particle swarm optimization) there is very little difference in performance between these functions, that relevance feedback is effective, that stemming is effective, and that it remains unclear which function is best over-all.},
+    booktitle = {Proceedings of the 19th Australasian Document Computing Symposium},
+    pages = {58–65},
+    numpages = {8},
+    keywords = {Document Retrieval, Procrastination, Relevance Ranking},
+    location = {Melbourne, VIC, Australia},
+    series = {ADCS '14}
+}
+
+#https://dl.acm.org/doi/abs/10.1145/361219.361220
+@article{tfidf,
+    author = {Salton, G. and Wong, A. and Yang, C. S.},
+    title = {A vector space model for automatic indexing},
+    year = {1975},
+    issue_date = {Nov. 1975},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {18},
+    number = {11},
+    issn = {0001-0782},
+    url = {https://doi.org/10.1145/361219.361220},
+    doi = {10.1145/361219.361220},
+    abstract = {In a document retrieval, or other pattern matching environment where stored entities (documents) are compared with each other or with incoming patterns (search requests), it appears that the best indexing (property) space is one where each entity lies as far away from the others as possible; in these circumstances the value of an indexing system may be expressible as a function of the density of the object space; in particular, retrieval performance may correlate inversely with space density. An approach based on space density computations is used to choose an optimum indexing vocabulary for a collection of documents. Typical evaluation results are shown, demonstating the usefulness of the model.},
+    journal = {Commun. ACM},
+    month = nov,
+    pages = {613–620},
+    numpages = {8},
+    keywords = {document space, content analysis, automatic information retrieval, automatic indexing}
 }
