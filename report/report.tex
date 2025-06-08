@@ -48,7 +48,9 @@
 
 \section{Introduction}
 
-\section{Background}
+\section{Theory}
+
+\section{Data}
 
 \section{Method}
 \subsection{Baselines}
@@ -97,15 +99,21 @@ LLMs to quickly generate a larger dataset than e human annotated one.
 For each recipe, the following prompts are used, and each promp is then used as
 its own evaluation task:
 \begin{itemize}
-    \item \emph{``Summarize this ingredient list into a short query a person might type
-        into google''}; This returns a more human-esque way of inputting a
+    \item \textbf{``Summarize this ingredient list into a short query a person might type
+        into google''} --- This returns a more human-esque way of inputting a
         recipe, rather than a list of ingredients and instructions.
-    \item \emph{``Extract only the main food items and their preparations from
-        this list''}; This returns a list that is more akin to the query a
+        Since text like this query, is supposed to be input into an LLM that
+        then uses a processed input to a function, it was also asked to process
+        this sentence into a more structure format containing a title and a list
+        of ingredients.
+    \item \textbf{``Extract only the main food items and their preparations from
+        this list''} --- This returns a list that is more akin to the query a
         person (or program) is more likely to input to the model.
-    \item \emph{``I have the following ingredients and some of their
+    \item \textbf{``I have the following ingredients and some of their
             preparations. List the most important ingredients and their
-        preparations I should use to search a recipe with''}
+        preparations I should use to search a recipe with''} --- This returns a
+        list that is compromised only of the most important elements of the
+        recipe.
 \end{itemize}
 
 \paragraph{Human Processed Queries} --- This task takes y (smaller than x)
@@ -114,12 +122,16 @@ into a more human like input.
 For each list of ingredients, two different processing methods were used as
 described below:
 \begin{itemize}
-    \item \emph{A list of ingredients}; for example ``Cucumber,
-        sun-dried tomatoes, chopped onion and ground beef'', this is to mimic a
-        sample input of ``I have X food, what can I cook with it''
-    \item \emph{Specifc preparation}; for example ``finely chopped onion,
-        braised until browned; toasted ground sesame seeds'', this is to really
-        test out the capabilities of the \emph{preparation} NER tag processing.
+    \item \textbf{A list of ingredients} --- for example ``Cucumber,
+        sun-dried tomatoes, onion and ground beef'', mostly without preparations
+        unless they are too core to the recipe, e.g.\ ``ground'' beef.
+        This is to mimic a sample input of ``I have X food, what can I cook with it''
+    \item \textbf{A list of prepared key ingredients} --- in this list the core
+        and most unusal ingredients, with all of their preparations are compiled
+        into a list; for example ``drained
+        and quartered artichoke hearts; smoked turkey breast, cubed''.
+        This is used to see if filtering on particular preparations can find
+        very specific recipies.
 \end{itemize}
 
 \subsubsection{Query Speed}
@@ -175,6 +187,10 @@ efficient?
 I also want to create a model using tfidf and filtering methods.
 \subsection{NER Model}
 \subsubsection{Labeling}
+
+\section{Results}
+\section{Discussion}
+\section{Conclusion}
 
 \end{document}
 
