@@ -74,24 +74,19 @@ def transform_ingredients_to_tokens(ingredients: list,
 
 
 # Assume recipeNLG dataset, where each ingredient line is a list item
-def transform_ds_to_tokens(ds: pl.dataframe.frame.DataFrame,
-                           ner_model: spacy.lang.en.English,
-                           create_vocab=False):
+def transform_data_to_tokens(data: list[str],
+                             ner_model: spacy.lang.en.English,
+                             create_vocab=False):
     tokens = []
     preps = []
     optionals = []
-    for i, ingredients in enumerate(ds['ingredients']):
+    for ingredients in data:
         datapoint_obj = transform_ingredients_to_tokens(ingredients, ner_model,
                                                         create_vocab)
         tokens.append(datapoint_obj['foods'])
         preps.append(json.dumps(datapoint_obj['preps']))
         optionals.append(datapoint_obj['optionals'])
-    new_ds = ds.with_columns(
-        pl.Series(name='tokens', values=tokens),
-        pl.Series(name='preps', values=preps),
-        pl.Series(name='optionals', values=optionals)
-    )
-    return new_ds
+    return tokens, preps, optionals,
 
 
 def construct_ingredient_query(pq_path: str, ingredients: list, preps: dict):
