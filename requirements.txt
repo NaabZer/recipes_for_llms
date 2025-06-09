@@ -182,6 +182,7 @@ ruamel.yaml==0.18.10
 ruamel.yaml.clib==0.2.12
 scikit-learn==1.6.1
 scipy==1.15.2
+seaborn==0.13.2
 Send2Trash==1.8.3
 shellingham==1.5.4
 six==1.17.0
