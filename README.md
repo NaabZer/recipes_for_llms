@@ -1,6 +1,6 @@
 # Recipes for LLM's
 ## Recipe data extraction using text mining for LLM applications
-This is an experimental repository to use Text Mining to turn recipies, especially list of ingredients into a more searchable format.
+This is an experimental repository to use Text Mining to turn recipes, especially list of ingredients into a more searchable format.
 The idea is to create a more searchable format for recipes, so that you can more efficiently incorporate them with LLM Agents.
 
 Originally a school project, might keep working with it if it works out well.
@@ -24,19 +24,19 @@ Basically creating one directional relations between ingredients, their prepared
         - [ ] Download and preprocess data
         - [ ] Train NER model using spaCy/MLflow
         - [ ] Serve new model to API
-    - [X] Set up automatic tagging API for doccano using served NER model
+    - [X] Set up automatic tagging API for label-studio using served NER model
 - [ ] Create baselines for evaluations:
     - [X] A basic Bag-of-Words search/database
     - [ ] Pre-trained embeddings using some model, e.g. BERT
 - [ ] Create evaluation tasks
-    - [ ] Find a subset of recipes where a specific query would find the recipe to allow evaluation using metrics
+    - [X] Create a human annotated dataset
+    - [X] Create a LLM annotated dataset
     - [ ] Create some search queries that can then be benchmarked using time measurement
-    - [ ] Think of something more?
 - [ ] Define data structure for:
-    - [ ] DuckDB + Parquet
+    - [X] DuckDB + Parquet
     - [ ] GraphDB
 - [ ] Use trained NER and POS tagging to extract data from ingredient lists into:
-    - [ ] DuckDB + Parquet
+    - [X] DuckDB + Parquet
     - [ ] GraphDB
 - [ ] Evaluate
     - [ ] Run the evaluation tasks on the different evaluation tasks, collect metrics on performance and evaluate methods
@@ -59,7 +59,7 @@ Out of these, the most important ones for creating a database and searching for 
 But of course, the rest of the tags would be present in the database and would also be possible to do filtering on, but it probably doesn't provide much. The tags are there more for the NER tagger to be able to diffirentiate critical vs non-critical attributes (like **Preparation** vs **Alteration**).
 
 #### Tagging pipeline
-The tagging is done using [doccano](https://github.com/doccano/doccano), the first dataset is a modified version of [TASTEset](https://github.com/taisti/TASTEset), where some of the above tags are present, and some are changed.
+The tagging is done using ~~[doccano](https://github.com/doccano/doccano)~~ [label-studio](https://github.com/HumanSignal/label-studio), the first dataset is a modified version of [TASTEset](https://github.com/taisti/TASTEset), where some of the above tags are present, and some are changed.
 Therefore the labels have had to be relabeled.
-Doccano supports API-labeling, so after the first NER model has been trained, an API will be created and then used to automatically tag ingredient sentences, and then you can readjust if neccessary.
+~~Doccano~~ label-studio supports API-labeling, so after the first NER model was trained, an API was created and used to automatically tag ingredient sentences while labeling, increasing labeling throughput, increasingly getting better and better.
 
