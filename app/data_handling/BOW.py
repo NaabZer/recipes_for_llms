@@ -1,6 +1,7 @@
 import polars as pl
 
 
+# TODO: Make this use the model function
 def transform_ds_to_BOW(ds: pl.DataFrame, model):
     tfidfs = []
     for ingredients in ds.select('ingredients').iter_rows():
