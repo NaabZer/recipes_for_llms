@@ -1,0 +1,1423 @@
+[
+  {
+    "index": 25000,
+    "title": "Pineapple Cream Cake",
+    "ingredients": [
+      "1 pkg. white cake mix",
+      "2 small pkg. vanilla instant pudding mix",
+      "1 (8 oz.) pkg. cream cheese",
+      "4 c. milk",
+      "1 (20 oz.) can crushed pineapple",
+      "2 pkg. Dream Whip",
+      "1 c. cold milk",
+      "4 oz. cream cheese"
+    ],
+    "human_ingredients": [
+        "cake mix",
+        "pudding mix",
+        "cream cheese",
+        "milk",
+        "a can of pinapples"
+    ],
+    "human_key_ingredients":[
+        "two packages of vanilla instant pudding mix",
+        "one can of crushed pineapple"
+    ]
+  },
+  {
+    "index": 135438,
+    "title": "Pineapple Casserole",
+    "ingredients": [
+      "2 large cans pineapple tidbits, drained",
+      "3/4 c. flour",
+      "1 c. sugar",
+      "2 c. grated Cheddar cheese",
+      "1 roll Ritz crackers, crushed",
+      "1 stick melted butter"
+    ],
+    "human_ingredients": [
+        "canned pineapple",
+        "flour",
+        "sugar",
+        "cheddar cheese",
+        "ritz crackers",
+        "butter"
+    ],
+    "human_key_ingredients":[
+        "grated cheddar cheese",
+        "a pack of crushed ritz crackers"
+    ]
+  },
+  {
+    "index": 230315,
+    "title": "Low-Fat Chili",
+    "ingredients": [
+      "1 1/2 lb. ground turkey",
+      "1 1/2 c. chopped onion",
+      "2 cloves garlic, minced",
+      "1/2 c. chopped green pepper",
+      "1/2 c. diced zucchini",
+      "2 Tbsp. water",
+      "1 can (15 oz.) tomato sauce",
+      "1 can (15 oz.) tomatoes (undrained), coarsely chopped",
+      "1 can (15 oz.) black beans, drained",
+      "1 Tbsp. chili powder",
+      "1 1/2 tsp. cumin",
+      "3 c. brown rice, cooked"
+    ],
+    "human_ingredients": [
+        "ground turkey",
+        "onion",
+        "garlic",
+        "green pepper",
+        "zucchini",
+        "tomato sauce",
+        "tomatoes",
+        "black beans",
+        "chili powder",
+        "cumin",
+        "brown rice"
+    ],
+    "human_key_ingredients":[
+        "coarsely chopped tomatoes",
+        "cooked brown rice",
+        "diced zucchini"
+    ]
+  },
+  {
+    "index": 272288,
+    "title": "Almond Bars",
+    "ingredients": [
+      "1 c. butter",
+      "2 c. flour",
+      "1/2 c. powdered sugar"
+    ],
+    "human_ingredients": [
+        "butter",
+        "flour",
+        "powdered sugar"
+    ],
+    "human_key_ingredients":[
+        "butter",
+        "flour",
+        "powdered sugar"
+    ]
+  },
+  {
+    "index": 275407,
+    "title": "Pineapple Icebox Cake",
+    "ingredients": [
+      "1 box yellow cake mix",
+      "1 (20 oz.) can crushed pineapple (with juice)",
+      "1 c. sugar",
+      "1 (3 oz.) pkg. instant vanilla pudding",
+      "1 (3.5 oz.) can flaked coconut",
+      "1 (8 oz.) carton frozen whipped topping, thawed",
+      "1 c. chopped pecans"
+    ],
+    "human_ingredients": [
+        "yellow cake mix",
+        "can of pinapple",
+        "sugar",
+        "vanilla pudding",
+        "coconut flakes",
+        "whipped topping",
+        "pecans"
+    ],
+    "human_key_ingredients":[
+        "a box of yellow cake mix",
+        "a carton of frozen whipped topping",
+        "a can of pinapples"
+    ]
+  },
+  {
+    "index": 396133,
+    "title": "Salad Bar Rice Salad",
+    "ingredients": [
+      "1/2 c. whipping cream, whipped",
+      "1/4 c. sugar",
+      "1 c. miniature marshmallows",
+      "1 (8 oz.) can crushed pineapple, drained",
+      "2 c. converted rice"
+    ],
+    "human_ingredients": [
+        "whipping cream",
+        "sugar",
+        "mini marshmallows",
+        "can of pinapples",
+        "rice"
+    ],
+    "human_key_ingredients":[
+        "converted rice",
+        "a can of crushed pineapple"
+    ]
+  },
+  {
+    "index": 413606,
+    "title": "Tomato Parmesan Salad",
+    "ingredients": [
+      "1 1/3 cup vegetable or olive oil",
+      "1 cup red wine vinegar",
+      "2 cloves garlic, minced",
+      "salt and pepper to taste",
+      "2 bunches romaine lettuce, torn",
+      "1 head iceberg lettuce, torn",
+      "2 small red onions, thinly sliced",
+      "2 large tomatoes, diced",
+      "4 oz. diced pimentos, drained",
+      "2/3 cup shredded Parmesan cheese"
+    ],
+    "human_ingredients": [
+        "oil",
+        "vinegar",
+        "garlic",
+        "lettuce",
+        "red onion",
+        "tomatoes",
+        "pimentos",
+        "parmesan cheese"
+    ],
+    "human_key_ingredients":[
+        "thinly sliced red onions",
+        "red wine vinegar"
+    ]
+  },
+  {
+    "index": 429967,
+    "title": "Plum Cake",
+    "ingredients": [
+      "2 jars baby food with tapioca",
+      "2 c. self-rising flour",
+      "2 c. sugar",
+      "1 c. salad oil",
+      "1 tsp. cinnamon",
+      "1 tsp. nutmeg",
+      "3 eggs, beaten slightly",
+      "2 c. chopped nuts"
+    ],
+    "human_ingredients": [
+        "baby food with tapioca",
+        "flour",
+        "sugar",
+        "oil",
+        "cinnamon",
+        "nutmeg",
+        "egg",
+        "nuts"
+    ],
+    "human_key_ingredients":[
+        "baby food with tapioca",
+        "chopped nuts"
+    ]
+  },
+  {
+    "index": 645743,
+    "title": "Smoked Turkey Artichoke Salad",
+    "ingredients": [
+      "1/2 c. mayo",
+      "1/3 c. Italian dressing",
+      "1/2 tsp. tarragon",
+      "1/2 tsp. ground pepper",
+      "3 c. smoked turkey breast, cubed",
+      "1 (14 oz.) can artichoke hearts, drained and quartered",
+      "1/3 c. each: Green pepper, yellow pepper and red pepper"
+    ],
+    "human_ingredients": [
+        "mayo",
+        "dressing",
+        "tarragon",
+        "turkey breast",
+        "artichoke hearts",
+        "green pepper",
+        "yellow pepper",
+        "red pepper"
+    ],
+    "human_key_ingredients":[
+        "smoked turkey breast, cubed",
+        "drained and quartered artichoke hearts"
+    ]
+  },
+  {
+    "index": 653332,
+    "title": "Dried Beef Dip",
+    "ingredients": [
+      "2 pkg. cream cheese",
+      "1 green pepper",
+      "1 pkg. dried beef, chopped",
+      "1/2 small container sour cream",
+      "1 tsp. Worcestershire sauce",
+      "1 dash salt",
+      "1 small onion, chopped"
+    ],
+    "human_ingredients": [
+        "cream cheese",
+        "green pepper",
+        "beef",
+        "sour cream",
+        "worcestershire sauce",
+        "onion"
+    ],
+    "human_key_ingredients":[
+        "chopped dried beef",
+        "worcestershire sauce"
+    ]
+  },
+  {
+    "index": 733494,
+    "title": "Cherry Delight",
+    "ingredients": [
+      "2 pkg. graham crackers",
+      "2 sticks margarine",
+      "2 pkg. Dream Whip",
+      "1 pkg. Philadelphia cream cheese (8 oz.)",
+      "1 c. powdered sugar",
+      "2 tsp. sugar",
+      "2 cans cherry filling (or pineapple)"
+    ],
+    "human_ingredients": [
+        "graham crackers",
+        "margarine",
+        "dream whip",
+        "cream cheese",
+        "powdered sugar",
+        "sugar",
+        "cherry filling"
+    ],
+    "human_key_ingredients":[
+        "dream whip",
+        "cherry filling"
+    ]
+  },
+  {
+    "index": 756211,
+    "title": "Mom'S Meat Loaf",
+    "ingredients": [
+      "1 1/2 lb ground beef",
+      "1 med chopped onion",
+      "1 1/2 tsp salt",
+      "2 -8 oz cans tomato sauce",
+      "3 Tbsp vinegar",
+      "2 Tbsp Worcestershire sauce",
+      "2 Tbsp mustard",
+      "1 C fresh bread crumbs",
+      "1 egg, beaten",
+      "1/4 tsp pepper",
+      "1/2 C water",
+      "3 Tbsp brown sugar"
+    ],
+    "human_ingredients": [
+        "ground beef",
+        "onion",
+        "tomato sauce",
+        "vinegar",
+        "Worcestershire sauce",
+        "mustard",
+        "bread crumbs",
+        "egg",
+        "brown sugar"
+    ],
+    "human_key_ingredients":[
+        "fresh bread crumbs",
+        "a can of tomato sauce",
+        "worcestershire sauce"
+    ]
+  },
+  {
+    "index": 769448,
+    "title": "Pizza Casserole",
+    "ingredients": [
+      "3 c. spiral macaroni, cooked",
+      "1 chopped onion",
+      "pepper",
+      "1 can tomato paste",
+      "1/2 Tbsp. sugar",
+      "dash of onion salt",
+      "1/2 lb. Mozzarella cheese",
+      "1 1/2 to 2 lb. ground beef",
+      "salt",
+      "2 cans pizza sauce",
+      "1 small can tomato sauce",
+      "dash of garlic salt",
+      "dash of oregano",
+      "pepperoni slices"
+    ],
+    "human_ingredients": [
+        "macaroni",
+        "onion",
+        "tomato paste",
+        "sugar",
+        "onion salt",
+        "mozzarella cheese",
+        "ground beef",
+        "pizza sauce",
+        "tomato sauce",
+        "garlic salt",
+        "oregano",
+        "pepperoni"
+    ],
+    "human_key_ingredients":[
+        "cooked spiral macaroni",
+        "garlic salt"
+    ]
+  },
+  {
+    "index": 792982,
+    "title": "Chicken Corn Soup",
+    "ingredients": [
+      "1 large stewing chicken, cut into pieces",
+      "2 qt. water",
+      "2 tsp. salt",
+      "1 tsp. pepper",
+      "1 medium chopped onion",
+      "few celery leaves",
+      "2 c. fresh corn, off cob",
+      "2 Tbsp. chopped parsley",
+      "2 c. homemade noodles",
+      "2 chopped hard-cooked eggs"
+    ],
+    "human_ingredients": [
+        "chicken",
+        "onion",
+        "celery leaves",
+        "corn",
+        "parsley",
+        "noodles",
+        "eggs"
+    ],
+    "human_key_ingredients":[
+        "stewin chicken cut into pieces",
+        "fresh corn off the cob"
+    ]
+  },
+  {
+    "index": 827711,
+    "title": "Cheese Potato Casserole",
+    "ingredients": [
+      "1/2 c. chopped onion",
+      "1 pt. sour cream",
+      "2 lb. hash browns",
+      "3/4 c. margarine",
+      "1 can cream of mushroom or chicken soup",
+      "8 oz. shredded Cheddar cheese"
+    ],
+    "human_ingredients": [
+        "onion",
+        "sour cream",
+        "hash browns",
+        "margarine",
+        "cream of mushroom soup",
+        "cheddar cheese"
+    ],
+    "human_key_ingredients":[
+        "cream of mushroom soup",
+        "hash browns"
+    ]
+  },
+  {
+    "index": 838710,
+    "title": "Wiener Schnitzel",
+    "ingredients": [
+      "2 lb. veal cutlets, thinly sliced",
+      "1 c. fresh lemon juice",
+      "salt",
+      "freshly ground pepper",
+      "2 eggs",
+      "2 Tbsp. water",
+      "1/4 c. flour",
+      "1 c. fine bread crumbs",
+      "oil or shortening"
+    ],
+    "human_ingredients": [
+        "veal cutlets",
+        "lemon juice",
+        "eggs",
+        "flour",
+        "bread crumbs",
+        "oil"
+    ],
+    "human_key_ingredients":[
+        "thinly sliced veal cutlets",
+        "fine bread crumbs"
+    ]
+  },
+  {
+    "index": 856938,
+    "title": "Curry Canapes",
+    "ingredients": [
+      "1 1/2 c. Cheddar cheese, shredded",
+      "1 c. chopped ripe olives",
+      "1/2 c. scallions, chopped",
+      "1/2 c. mayonnaise",
+      "1 tsp. curry"
+    ],
+    "human_ingredients": [
+        "cheddar cheese",
+        "olives",
+        "scallions",
+        "mayonnaise",
+        "curry"
+    ],
+    "human_key_ingredients":[
+        "shredde cheddar cheese",
+        "chopped ripe olives"
+    ]
+  },
+  {
+    "index": 867644,
+    "title": "Chocolate Caramel Layered Squares",
+    "ingredients": [
+      "1 (14 oz.) bag caramels",
+      "2/3 c. evaporated milk, divided",
+      "1 (18 1/2 oz.) regular German chocolate cake mix",
+      "3/4 c. butter",
+      "1 (6 oz.) bag chocolate morsels"
+    ],
+    "human_ingredients": [
+        "caramels",
+        "evaporated milk",
+        "chocolate cake mix",
+        "butter",
+        "chocolate morsels"
+    ],
+    "human_key_ingredients":[
+        "evaporated milk, divided",
+        "regular german chocolate cake mix"
+    ]
+  },
+  {
+    "index": 868166,
+    "title": "Salmon Croquettes Or Patties",
+    "ingredients": [
+      "1 can any kind salmon, drained",
+      "1 onion, chopped",
+      "1 egg",
+      "1/2 c. seasoned bread crumbs or oatmeal"
+    ],
+    "human_ingredients": [
+        "salmon",
+        "onion",
+        "egg",
+        "bread crumbs"
+    ],
+    "human_key_ingredients":[
+        "any kind of canned salmon, drained",
+        "seasoned bread crumbs"
+    ]
+  },
+  {
+    "index": 889239,
+    "title": "Chicken Vermouth",
+    "ingredients": [
+      "8 to 12 halved chicken breasts, deboned",
+      "1 jar Italian dressing",
+      "1 can mushroom soup",
+      "3/4 oz. Canada Dry vermouth"
+    ],
+    "human_ingredients": [
+        "chicken breast",
+        "dressing",
+        "mushroom soup",
+        "vermouth"
+    ],
+    "human_key_ingredients":[
+        "deboned, halved chicken breasts",
+        "Canady Dry vermouth"
+    ]
+  },
+  {
+    "index": 903979,
+    "title": "Nutty Waffles (Gluten-Free, Sugar-Free)",
+    "ingredients": [
+      "2 cups walnut flour",
+      "2 cups almond flour",
+      "4 teaspoons baking powder",
+      "1 tablespoon vanilla extract",
+      "2 teaspoons ground cinnamon",
+      "1/2 teaspoon ground nutmeg",
+      "1/2 teaspoon liquid stevia",
+      "1/4 cup butter, melted",
+      "1/4 cup unsweetened applesauce, or as needed",
+      "6 egg whites"
+    ],
+    "human_ingredients": [
+        "Walnut flour",
+        "almond flour",
+        "baking powder",
+        "vanilla extract",
+        "cinnamon",
+        "nutmeg",
+        "stevia",
+        "butter",
+        "applesauce",
+        "egg whites"
+    ],
+    "human_key_ingredients":[
+        "walnut flour",
+        "liquid stevia",
+        "unsweetened applesauce"
+    ]
+  },
+  {
+    "index": 942893,
+    "title": "Radish Cream Cheese Spread",
+    "ingredients": [
+      "1 (8 ounce) package cream cheese, softened",
+      "2 tablespoons milk, or as needed",
+      "1 bunch radishes, finely chopped",
+      "1 bunch fresh dill, chopped"
+    ],
+    "human_ingredients": [
+        "cream cheese",
+        "milk",
+        "radishes",
+        "dill"
+    ],
+    "human_key_ingredients":[
+        "softened cream cheese",
+        "a bunch of finely chopped radishes"
+    ]
+  },
+  {
+    "index": 979631,
+    "title": "Chocolate Curls",
+    "ingredients": [
+      "8 ounces good quality dark chocolate",
+      "1 chocolate cake, frosted"
+    ],
+    "human_ingredients": [
+        "dark chocolate",
+        "chocolate cake"
+    ],
+    "human_key_ingredients":[
+        "good quality dark chocolate",
+        "frosted chocolate cake"
+    ]
+  },
+  {
+    "index": 1003032,
+    "title": "Veronica'S Bloomin Onion",
+    "ingredients": [
+      "2 large vidalia onions or 2 large any sweet onions",
+      "1 (10 ounce) box goldin dipt fish 'n chips batter frying mix, plus",
+      "1 1/4 cups water",
+      "1 package ranch dip mix",
+      "1 (16 ounce) carton sour cream",
+      "vegetable oil"
+    ],
+    "human_ingredients": [
+        "onion",
+        "fish 'n chips batter",
+        "ranch dip mix",
+        "sour cream",
+        "oil"
+    ],
+    "human_key_ingredients":[
+        "a box golden dipt fish 'n chips batter frying mix",
+        "vidalia onions"
+    ]
+  },
+  {
+    "index": 1022784,
+    "title": "Crock Pot Corned Beef Dinner",
+    "ingredients": [
+      "2 lbs corned beef brisket",
+      "2 large potatoes, cut into quarters",
+      "2 large carrots, cut into quarters",
+      "2 large celery, cut into chunks",
+      "1 onion, chopped fine",
+      "2 garlic cloves, minced",
+      "1 bay leaf",
+      "1 teaspoon dried thyme",
+      "1 teaspoon pepper",
+      "1/2 teaspoon caraway seed",
+      "1 cup chicken stock",
+      "1 cup water"
+    ],
+    "human_ingredients": [
+        "beef brisket",
+        "potatoes",
+        "carrots",
+        "celery",
+        "onion",
+        "garlic",
+        "bay leaf",
+        "thyme",
+        "caraway seed",
+        "chicken stock"
+    ],
+    "human_key_ingredients":[
+        "corned beef brisket",
+        "finely chopped onion",
+        "potatoes cut into quarters"
+    ]
+  },
+  {
+    "index": 1115741,
+    "title": "Gluten-Free Dark Chocolate Dipped Coconut Macaroons",
+    "ingredients": [
+      "8 whole pitted dates, quartered",
+      "3/4 cup sliced banana (about 1 medium banana)",
+      "1 cup lightly packed sweetened flaked coconut",
+      "1/4 cup dark chocolate chips"
+    ],
+    "human_ingredients": [
+        "dates",
+        "banana",
+        "flaked coconut",
+        "chocolate chips"
+    ],
+    "human_key_ingredients":[
+        "while pitted dates, quartered",
+        "lightly packed sweetened flaked coconut"
+    ]
+  },
+  {
+    "index": 1159762,
+    "title": "Breaded Italian Chicken Strips - Nuwave-Flavorwave Oven",
+    "ingredients": [
+      "6 -8 chicken strips (Frozen)",
+      "2 eggs, slightly beaten and mixed with small amount of milk",
+      "1/2 cup cracker crumb (Crushed)",
+      "1/2 cup Italian breadcrumbs (seasoned)",
+      "1 1 dash pepper, and or 1 dash garlic powder"
+    ],
+    "human_ingredients": [
+        "chicken strips",
+        "eggs",
+        "cracker",
+        "breadcrumbs"
+    ],
+    "human_key_ingredients":[
+        "frozen chicken strips",
+        "eggs, slightly beaten and mixed with small amounts of milk",
+        "seasoned italian breadcrumbs"
+    ]
+  },
+  {
+    "index": 1267417,
+    "title": "Toffee And Banana Cupcakes",
+    "ingredients": [
+      "1 3/4 cup all-purpose flour + 2 tbsp",
+      "3/4 cup granulated sugar",
+      "2 tsp vanilla extract",
+      "1 tsp baking powder",
+      "2 None eggs",
+      "1/3 cup oil",
+      "3/4 cup buttermilk",
+      "2 None bananas, mashed",
+      "6 oz chocolate-covered toffee bars, finely chopped",
+      "1 cup heavy cream"
+    ],
+    "human_ingredients": [
+        "flour",
+        "sugar",
+        "vanilla extract",
+        "baking powder",
+        "eggs",
+        "oil",
+        "buttermilk",
+        "bananas",
+        "toffee bars",
+        "heavy cream"
+    ],
+    "human_key_ingredients":[
+        "mashed bananas",
+        "chocolate-covered toffee bars, finely chopped"
+    ]
+  },
+  {
+    "index": 1293574,
+    "title": "Tarragon-Cream Chicken ",
+    "ingredients": [
+      "Season:",
+      "4 boneless, skinless chicken breast halves",
+      "Dust Chicken with:",
+      "1/2 cup all-purpose flour",
+      "Saute Chicken in; Remove:",
+      "2 T. olive oil",
+      "Add:",
+      "8 oz. white mushrooms, halved if large",
+      "3 oz. prosciutto, sliced",
+      "Add:",
+      "1 cup dry white wine or low-sodium chicken broth",
+      "1 cup heavy cream",
+      "Return to Pan:",
+      "Browned chicken",
+      "Stir in:",
+      "2 t. minced fresh tarragon",
+      "1 t. apple cider vinegar",
+      "Garnish with:",
+      "Minced fresh chives",
+      "Serve over:",
+      "Toasted bread"
+    ],
+    "human_ingredients": [
+        "chicken breast",
+        "flour",
+        "oil",
+        "mushroom",
+        "proscuitto",
+        "white wine",
+        "heavy cream",
+        "tarragon",
+        "vinegar",
+        "chives",
+        "bread"
+    ],
+    "human_key_ingredients":[
+        "boneless, skinless chicken breasts, halved",
+        "fresh minced tarragon"
+    ]
+  },
+  {
+    "index": 1306131,
+    "title": "Fruit Granita ",
+    "ingredients": [
+      "3/4 cup water",
+      "3/4 cup powdered sugar",
+      "2 green tea bags",
+      "3 very ripe peaches (small)",
+      "3 ripe plums (medium)",
+      "1 1/2 cups strawberries",
+      "3/4 cup orange juice"
+    ],
+    "human_ingredients": [
+        "powdered sugar",
+        "tea",
+        "peaches",
+        "plums",
+        "strawberries",
+        "orange juice"
+    ],
+    "human_key_ingredients":[
+        "green tea bags",
+        "small, very ripe peaches",
+        "orange juice"
+    ]
+  },
+  {
+    "index": 1366447,
+    "title": "Mixed Fresh Fruits With Chillie Peppers Paste",
+    "ingredients": [
+      "mixed fruits",
+      "1 pound mixes of apples, pears,bananas, grapes, water-melon, cucumber.black berries, straw berries,",
+      "1 dash seasoning, sugar,chillie paste",
+      "1 cup greek curd",
+      "chillie peppers paste, a dash of brown sugar,salt,sweet greek curd,",
+      "1 tablespoon chillie peppers paste",
+      "1 tablespoon brown sugar",
+      "1 dash salt",
+      "1 cup sweet greek curd"
+    ],
+    "human_ingredients": [
+        "apples",
+        "pear",
+        "bananas",
+        "grapes",
+        "water-melon",
+        "cucumber",
+        "blackberries",
+        "strawberries",
+        "greek curd",
+        "chili peppers",
+        "brown sugar"
+    ],
+    "human_key_ingredients":[
+        "Chili pepper paste",
+        "cucumber",
+        "pear"
+    ]
+  },
+  {
+    "index": 1401491,
+    "title": "Pan Seared Scallops With Mushroom Gravy Over Cauliflower Mash:",
+    "ingredients": [
+      "Scallops, Cooked Spinach, and Cauliflower Mash",
+      "6 Jumbo sea scallops",
+      "1 tablespoon olive oil",
+      "2 tablespoons unsalted butter, divided",
+      "2 bunches fresh organic spinach, washed and trimmed",
+      "1 large cauliflower head",
+      "1-2 garlic cloves, whole",
+      "1/4 cup organic unsweetened coconut milk",
+      "2 tablespoons thyme, finely chopped",
+      "Mushroom, Shallot, and Thyme Gravy",
+      "1/3 cup dried mushrooms (shiitake or mixed)",
+      "2 cups organic vegetable stock",
+      "2 tablespoons butter (vegan butter substitute is okay)",
+      "1 large shallot, finely minced",
+      "2 tablespoons flour",
+      "1 tablespoon tamari",
+      "1/4 cup organic unsweetened coconut milk",
+      "1/2 tablespoon red wine vinegar or sherry",
+      "1 tablespoon thyme, freshly chopped",
+      "salt and pepper"
+    ],
+    "human_ingredients": [
+        "scallops",
+        "oil",
+        "butter",
+        "spinach",
+        "cauliflower",
+        "garlic",
+        "coconut milk",
+        "thyme",
+        "mushroom",
+        "vegetable stock",
+        "shallot",
+        "tamari",
+        "vinegar"
+    ],
+    "human_key_ingredients":[
+        "jumbo sea scallop",
+        "shiitake dried mushrooms",
+        "organic unsweetened coconut milk"
+    ]
+  },
+  {
+    "index": 1412530,
+    "title": "Spicy Cheese Grits",
+    "ingredients": [
+      "1 teaspoon salt",
+      "3/4 cup uncooked quick-cooking grits",
+      "1 cup frozen whole kernel corn, thawed",
+      "1 (6.5-oz.) container pepper-Jack-and-jalapeno pepper spreadable cheese",
+      "1/2 teaspoon freshly ground pepper"
+    ],
+    "human_ingredients": [
+        "grits",
+        "corn",
+        "spreadable cheese"
+    ],
+    "human_key_ingredients":[
+        "uncooked quick-cooking grits",
+        "pepper-jack-and-jalapeno pepper spreadable cheese"
+    ]
+  },
+  {
+    "index": 1440301,
+    "title": "Green Olive Cheese Puffs",
+    "ingredients": [
+      "6 tablespoons unsalted butter",
+      "1 teaspoon kosher salt",
+      "1/8 teaspoon nutmeg, preferably freshly grated",
+      "1 cup flour",
+      "5 large eggs, divided",
+      "1/2 cup shredded emmenthal or gruyere cheese, or a combination",
+      "1/2 cup chopped Castelvetrano olives"
+    ],
+    "human_ingredients": [
+        "butter",
+        "salt",
+        "nutmeg",
+        "flour",
+        "eggs",
+        "cheese",
+        "olives"
+    ],
+    "human_key_ingredients":[
+        "chopped castelvetrano olives",
+        "shredded emmenthal or gruyere cheese"
+    ]
+  },
+  {
+    "index": 1451200,
+    "title": "Thai Chicken Saut\u00e9",
+    "ingredients": [
+      "1 (3 1/2-ounce) bag boil-in-bag rice",
+      "1 1/2 pounds chicken breast tenders",
+      "1 tablespoon cornstarch",
+      "1 tablespoon fish sauce",
+      "4 teaspoons canola oil, divided",
+      "1 cup sliced onion",
+      "2 teaspoons bottled minced garlic",
+      "1 teaspoon bottled ground fresh ginger (such as Spice World)",
+      "1/2 cup light coconut milk",
+      "2 tablespoons Sriracha (hot chile sauce, such as Huy Fong)",
+      "1 tablespoon sugar",
+      "1 tablespoon fresh lime juice",
+      "2 tablespoons chopped fresh cilantro",
+      "4 lime wedges"
+    ],
+    "human_ingredients": [
+        "rice",
+        "chicken breast",
+        "cornstarch",
+        "fish sauce",
+        "oil",
+        "onion",
+        "garlic",
+        "ginger",
+        "coconut milk",
+        "sriracha",
+        "sugar",
+        "lime juice",
+        "cilantro",
+        "lime"
+    ],
+    "human_key_ingredients":[
+        "chicken breast tenders",
+        "bottled ground fresh ginger",
+        "chopped fresh cilantro"
+    ]
+  },
+  {
+    "index": 1495127,
+    "title": "Cream Of Spinach Cheese Soup",
+    "ingredients": [
+      "1 cup chicken broth",
+      "1 package (6 ounces) fresh baby spinach, chopped",
+      "1/2 teaspoon onion powder",
+      "1/8 teaspoon pepper",
+      "4 teaspoons all-purpose flour",
+      "1 can (5 ounces) evaporated milk",
+      "1 cup shredded cheddar cheese"
+    ],
+    "human_ingredients": [
+        "chicken broth",
+        "spinach",
+        "onion powder",
+        "flour",
+        "evaporated milk",
+        "cheddar cheese"
+    ],
+    "human_key_ingredients":[
+        "fresh baby spinach, chopped",
+        "shredded cheddar cheese"
+    ]
+  },
+  {
+    "index": 1517671,
+    "title": "Fudgy Cherry Brownies",
+    "ingredients": [
+      "2 cups (12 ounces) semisweet chocolate chips, divided",
+      "1/4 cup butter, softened",
+      "2 cups biscuit/baking mix",
+      "1 can (14 ounces) sweetened condensed milk",
+      "1 large egg",
+      "1/2 teaspoon almond extract",
+      "1/2 cup chopped maraschino cherries",
+      "1/3 cup sliced almonds, toasted"
+    ],
+    "human_ingredients": [
+        "chocolate chips",
+        "butter",
+        "buscuit mix",
+        "condensed milk",
+        "egg",
+        "almond extract",
+        "cherries",
+        "almonds"
+    ],
+    "human_key_ingredients":[
+        "chopped maraschino cherries",
+        "semisweet chocolate chips, divided"
+    ]
+  },
+  {
+    "index": 1583747,
+    "title": "Berry Cherry Pie",
+    "ingredients": [
+      "FOR THE FLAKY PIE CRUST:",
+      "3 cups All-purpose Flour",
+      "1 dash Salt",
+      "1 cup Butter",
+      "1 Egg",
+      "6 Tablespoons Iced Water",
+      "Melted Butter Or Granulated Sugar, For Putting On The Top Of The Crust, Optional",
+      "FOR THE FILLING:",
+      "1 cup Raspberries",
+      "1 cup Cranberries",
+      "1 cup Blackberries",
+      "2 cups Pitted Cherries",
+      "3/4 cups Sugar",
+      "1/4 cups Cornstarch"
+    ],
+    "human_ingredients": [
+        "flour",
+        "butter",
+        "egg",
+        "raspberries",
+        "cranberries",
+        "blackberries",
+        "cherries",
+        "sugar",
+        "cornstarch"
+    ],
+    "human_key_ingredients":[
+        "all-purpose flour",
+        "cranberries",
+        "pitted cherries",
+        "cornstarch"
+    ]
+  },
+  {
+    "index": 1645774,
+    "title": "Biscotti-Plum Pudding With Spiced Red-Wine Syrup",
+    "ingredients": [
+      "3 cups fruity red wine, like Beaujolais",
+      "1 1/2 teaspoons black peppercorns, lightly crushed",
+      "2 2-inch cinnamon sticks",
+      "2 2-by- 1/2-inch strips orange zest",
+      "1 1/2 cups sugar",
+      "12 medium red plums, each pitted and cut into 6 slices",
+      "20 almond biscotti"
+    ],
+    "human_ingredients": [
+        "red wine",
+        "black peppercorns",
+        "cinnamon",
+        "orange",
+        "sugar",
+        "plums",
+        "almon biscotti"
+    ],
+    "human_key_ingredients":[
+        "fruity red wine, like Beaujolais",
+        "medium red plums, pitted and cut into 6 slices",
+        "almond biscotti"
+    ]
+  },
+  {
+    "index": 1719898,
+    "title": "Malaysian Chicken and Potato Curry",
+    "ingredients": [
+      "5 -6 medium sized chicken pieces",
+      "2 -3 potatoes",
+      "1 inch ginger",
+      "5 pieces red shallots",
+      "2 garlic cloves",
+      "1 cinnamon stick",
+      "3 whole cloves",
+      "2 star anise",
+      "2 tablespoons curry powder",
+      "1 cup coconut milk",
+      "2 tablespoons vegetable oil",
+      "1 cup water",
+      "1 tablespoon lime juice",
+      "1 teaspoon salt"
+    ],
+    "human_ingredients": [
+        "chicken",
+        "potatoes",
+        "ginger",
+        "shallot",
+        "garlic",
+        "cinnamon",
+        "cloves",
+        "star anise",
+        "curry powder",
+        "milk",
+        "oil",
+        "lime juice"
+    ],
+    "human_key_ingredients":[
+        "medium sized chicken pieces",
+        "potatoes",
+        "curry powder",
+        "coconut milk"
+    ]
+  },
+  {
+    "index": 1840319,
+    "title": "Quinoa & Vegetable Pilaf",
+    "ingredients": [
+      "1 1/2 cups raw quinoa",
+      "2 1/4 cups vegetable broth (see page 295)",
+      "1 teaspoon dried thyme",
+      "1 onion, diced",
+      "2 garlic cloves, minced or pressed",
+      "1 tablespoon olive oil",
+      "2 carrots, peeled and diced",
+      "1 bell pepper, seeded and diced",
+      "1 cup fresh or frozen green peas",
+      "1 tomato, diced",
+      "1/2 teaspoon salt",
+      "1/4 teaspoon black pepper",
+      "Grated Parmesan, Cheddar, or feta cheese (optional)"
+    ],
+    "human_ingredients": [
+        "quinoa",
+        "vegetable broth",
+        "thyme",
+        "onion",
+        "garlic",
+        "oil",
+        "carrots",
+        "bell pepper",
+        "green peas",
+        "tomato"
+    ],
+    "human_key_ingredients":[
+        "raw quinoa",
+        "seeded and diced bell peppers",
+        "diced tomato"
+    ]
+  },
+  {
+    "index": 1859799,
+    "title": "Carrot and Radish Salad",
+    "ingredients": [
+      "2 medium carrots (julienned)",
+      "1 cup radish (julienned)",
+      "1 tablespoon salt",
+      "1 tablespoon sesame oil",
+      "1 tablespoon rice vinegar",
+      "12 tablespoon soy sauce",
+      "12 tablespoon sugar",
+      "1 pinch cayenne"
+    ],
+    "human_ingredients": [
+        "carrots",
+        "radish",
+        "sesame oil",
+        "rice vinegar",
+        "soy sauce",
+        "sugar",
+        "cayenne"
+    ],
+    "human_key_ingredients":[
+        "julienned carrots",
+        "julienned radishes",
+        "sesame oil"
+    ]
+  },
+  {
+    "index": 1904983,
+    "title": "Grilled Lemon Chicken",
+    "ingredients": [
+      "1 whole chicken, 3-4 lbs",
+      "1 lemon",
+      "2 tablespoons olive oil",
+      "1 tablespoon italian seasoning",
+      "salt & freshly ground black pepper"
+    ],
+    "human_ingredients": [
+        "chicken",
+        "lemon",
+        "oil",
+        "italian seasoning"
+    ],
+    "human_key_ingredients":[
+        "whole chicken",
+        "lemon"
+    ]
+  },
+  {
+    "index": 1968356,
+    "title": "All Canadian Chicken Bites",
+    "ingredients": [
+      "4 boneless skinless chicken breast halves",
+      "1 egg",
+      "1 tablespoon milk",
+      "1 cup flour",
+      "12 cup sesame seeds",
+      "3 tablespoons vegetable oil",
+      "1 tablespoon lemon juice",
+      "13 cup apple juice",
+      "13 cup maple syrup",
+      "1 tablespoon honey",
+      "2 teaspoons soya sauce",
+      "1 teaspoon lemon juice"
+    ],
+    "human_ingredients": [
+        "chicken breast",
+        "egg",
+        "milk",
+        "flour",
+        "sesame seeds",
+        "oil",
+        "lemon juice",
+        "apple juice",
+        "maple syrup",
+        "honey",
+        "soy sauce"
+    ],
+    "human_key_ingredients":[
+        "boneless skinless chicken breast, halved",
+        "maple syrup",
+        "apple juice"
+    ]
+  },
+  {
+    "index": 1973827,
+    "title": "Zesty Italian Pasta Salad",
+    "ingredients": [
+      "2 cups ditalini pasta, cooked, cooled",
+      "6 cups tightly packed torn romaine lettuce",
+      "2 cups chopped, cooked chicken",
+      "2 large tomatoes, chopped King Sooper's 1 lb For $0.99 thru 02/09",
+      "4 slices OSCAR MAYER Bacon, cooked, crumbled Rite Aid 2 For $7.00 thru 02/06",
+      "1/2 cup ATHENOS Crumbled Gorgonzola Cheese",
+      "1/4 cup chopped red onions",
+      "3/4 cup KRAFT Zesty Italian Dressing"
+    ],
+    "human_ingredients": [
+        "pasta",
+        "lettuce",
+        "chicken",
+        "tomatoes",
+        "bacon",
+        "gorgonzola cheese",
+        "red onions",
+        "italian dressing"
+    ],
+    "human_key_ingredients":[
+        "ditalini pasta, cooked and cooled",
+        "tightly packed torn romaine lettuce",
+        "crumbled gorgonzola cheese"
+    ]
+  },
+  {
+    "index": 2044678,
+    "title": "Butternut Squash and Apples",
+    "ingredients": [
+      "3 lbs butternut squash, halved and seeded",
+      "14 cup butter",
+      "14 teaspoon salt",
+      "1 tablespoon brown sugar",
+      "1 dash pepper",
+      "3 -4 medium apples (Jonathan or Macintosh work well)",
+      "1 tablespoon butter",
+      "1 -2 tablespoon sugar",
+      "1 12 cups corn flakes, slightly crushed",
+      "12 cup pecans, chopped",
+      "2 tablespoons butter, melted",
+      "14 cup brown sugar"
+    ],
+    "human_ingredients": [
+        "butternut squash",
+        "butter",
+        "brown sugar",
+        "apples",
+        "sugar",
+        "corn flakes",
+        "pecans",
+        "butter"
+    ],
+    "human_key_ingredients":[
+        "butternut squash, halved and seeded",
+        "apples",
+        "slightly crushed corn flakes"
+    ]
+  },
+  {
+    "index": 2073976,
+    "title": "Classic Hollandaise Sauce",
+    "ingredients": [
+      "2 large egg yolks",
+      "1 tablespoon cold water",
+      "Pinch of salt",
+      "1 stick unsalted butter, melted",
+      "1 tablespoon fresh lemon juice",
+      "Dash of hot sauce",
+      "Dash of Worcestershire sauce"
+    ],
+    "human_ingredients": [
+        "egg yolks",
+        "butter",
+        "lemon juice",
+        "hot sauce",
+        "worcestershire sauce"
+    ],
+    "human_key_ingredients":[
+        "melted unsalted butter",
+        "worcestershire sauce",
+        "egg yolks"
+    ]
+  },
+  {
+    "index": 2096475,
+    "title": "Ravioli with Pancetta and Asparagus in a Basil Cream Sauce",
+    "ingredients": [
+      "6 slices Pancetta",
+      "14 whole Frozen Cheese Ravioli",
+      "10 Asparagus Spears, Trimmed",
+      "Fresh Basil, For Garnish (optional)",
+      "1/2 cups Neufchatel Cheese",
+      "1/2 cups Chicken Broth",
+      "1/4 cups Fresh Basil, Chopped",
+      "1 teaspoon Minced Garlic",
+      "1/2 teaspoons Minced Onion",
+      "1/4 teaspoons Crushed Red Pepper",
+      "1 Tablespoon Parmesan Cheese",
+      "1/2 teaspoons White Vinegar"
+    ],
+    "human_ingredients": [
+        "pancetta",
+        "ravioli",
+        "asparagus",
+        "neufchatel cheese",
+        "chicken broth",
+        "basil",
+        "garlic",
+        "onion",
+        "red pepper",
+        "parmesan cheese",
+        "vinegar"
+    ],
+    "human_key_ingredients":[
+        "whole frozen cheese ravioli",
+        "trimmed asparagus spears",
+        "fresh basil, chopped"
+    ]
+  },
+  {
+    "index": 2101378,
+    "title": "Cranberry Tart with Creme Fraiche Whipped Cream",
+    "ingredients": [
+      "4 cups fresh cranberries (about 1 pound)",
+      "1 1/2 cups sugar",
+      "1 whole cinnamon stick",
+      "1 disk Pate Sucree (page 651)",
+      "All-purpose flour, for dusting",
+      "1 large egg white, lightly beaten",
+      "1 cup heavy cream",
+      "1/2 cup creme fraiche"
+    ],
+    "human_ingredients": [
+        "cranberries",
+        "sugar",
+        "cinnamon",
+        "pate sucree",
+        "flour",
+        "egg white",
+        "heavy cream",
+        "creme fraiche"
+    ],
+    "human_key_ingredients":[
+        "fresh cranberries",
+        "creme fraiche",
+        "pate sucree"
+    ]
+  },
+  {
+    "index": 2168889,
+    "title": "Individual Pineapple Tartlettes",
+    "ingredients": [
+      "2 sheets frozen puff pastry, thawed",
+      "1 cup Chocolate Rum Ganache, recipe follows",
+      "4 canned pineapple rings or fresh pineapple cut into rings, and then into 6 pieces each",
+      "8 glaced cherries",
+      "1/3 cup apricot jam",
+      "2 tablespoons water",
+      "4 ounces semisweet chocolate, chopped",
+      "1 cup heavy cream",
+      "1 tablespoon dark rum"
+    ],
+    "human_ingredients": [
+        "puff pastry",
+        "pinapple",
+        "cherries",
+        "apricot jam",
+        "chocolate",
+        "heavy cream",
+        "dark rum"
+    ],
+    "human_key_ingredients":[
+        "pinapple rings, cut into 6 pieces",
+        "semisweet chocolate, chopped",
+        "dark rum"
+    ]
+  }
+]

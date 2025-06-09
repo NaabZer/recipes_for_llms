@@ -91,7 +91,7 @@ This task is used as a sanity check, as this tasks should in theory create the
 same embeddings for any embedding models, such as the TF-IDF baseline, and thus
 give those models 100\% accuracy.
 
-\paragraph{LLM Processed Queries} --- This task takes x amounts of random
+\paragraph{LLM Processed Queries} --- This task uses 1000 random
 recipes, and for each recipe, inputs the ingredient list to a LLM with several
 prompts to rephrase the input.
 This is used to mimic a more human like input, while leveraging the power of
@@ -116,9 +116,9 @@ its own evaluation task:
         recipe.
 \end{itemize}
 
-\paragraph{Human Processed Queries} --- This task takes y (smaller than x)
-amounts of random recipes, and for each recipe, the author processed these list
-into a more human like input.
+\paragraph{Human Processed Queries} --- This task uses 50 random recipes, that
+are a subset of the previous task, and for each recipe, the author processed
+these list into a more human like input.
 For each list of ingredients, two different processing methods were used as
 described below:
 \begin{itemize}
