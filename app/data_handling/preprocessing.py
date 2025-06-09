@@ -68,3 +68,10 @@ def transform_ingredients_to_tokens(ingredients: list, ner_model,
         'optionals': optionals
         }
     return datapoint_obj
+
+
+def lemmatize_line(line: str):
+    text = ""
+    for token in nlp(line):
+        text += token.lemma_.lower() + " "
+    return text.strip()
