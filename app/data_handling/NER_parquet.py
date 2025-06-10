@@ -1,8 +1,14 @@
 import spacy
+import duckdb
 import polars as pl
-import json
+from pydantic import BaseModel
 from app.data_handling.preprocessing import nlp
-vocab = set()
+
+
+class ParquetDefinition(BaseModel):
+    name: str
+    data: list
+    is_map: bool = False
 
 
 def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
@@ -39,8 +45,7 @@ def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
 
 
 def transform_ingredients_to_tokens(ingredients: list,
-                                    ner_model: spacy.lang.en.English,
-                                    create_vocab=False):
+                                    ner_model: spacy.lang.en.English):
     ner_lines = [ner_model(ingredient_line) for ingredient_line in ingredients]
     foods = []
     preparations = {}
@@ -63,8 +68,6 @@ def transform_ingredients_to_tokens(ingredients: list,
         if len(preparation_items) > 0:
             preparations[food] = preparation_items
         optionals.append(processed_line_obj['optional'])
-        if create_vocab:
-            vocab.add(food)
     datapoint_obj = {
         'foods': foods,
         'preps': preparations,
@@ -75,32 +78,45 @@ def transform_ingredients_to_tokens(ingredients: list,
 
 # Assume recipeNLG dataset, where each ingredient line is a list item
 def transform_data_to_tokens(data: list[str],
-                             ner_model: spacy.lang.en.English,
-                             create_vocab=False):
+                             ner_model: spacy.lang.en.English):
     tokens = []
     preps = []
     optionals = []
     for ingredients in data:
-        datapoint_obj = transform_ingredients_to_tokens(ingredients, ner_model,
-                                                        create_vocab)
+        datapoint_obj = transform_ingredients_to_tokens(ingredients, ner_model)
         tokens.append(datapoint_obj['foods'])
-        preps.append(json.dumps(datapoint_obj['preps']))
+        prep_dict = datapoint_obj['preps']
+        prep = []
+        for k, v in prep_dict.items():
+            prep.append({'key': k, 'value': v})
+        preps.append(prep)
         optionals.append(datapoint_obj['optionals'])
     return tokens, preps, optionals,
 
 
+def create_parquet_file(parquet_path: str, df: pl.DataFrame,
+                        fields: list[ParquetDefinition]):
+    cols_to_add = [pl.Series(name=pq.name, values=pq.data) for pq in fields]
+    new_df = df.with_columns(*cols_to_add)
+    new_df.write_parquet(parquet_path)
+
+    # Turn the map structs into actual maps
+    duckdb.sql(f"""COPY (
+                    SELECT
+                        * EXCLUDE (preps), map_from_entries(preps) AS preps
+                    FROM '{parquet_path}'
+               ) TO '{parquet_path}' (FORMAT PARQUET, OVERWRITE TRUE)""")
+    return parquet_path
+
+
 def construct_ingredient_query(pq_path: str, ingredients: list, preps: dict):
-    prep_keys = list(preps.keys())
-    base_sql = (f"SELECT *, json_extract(preps, {prep_keys}) AS prep_lists"
-                f" FROM '{pq_path}'"
-                " AS tbl"
-                f" WHERE list_has_all(tbl.tokens, {ingredients})"
-                )
+    base_sql = f""" SELECT * FROM '{pq_path}' AS tbl
+                    WHERE list_has_all(tbl.tokens, {ingredients})
+                """
     prep_filter = ""
     for i, (key, value) in enumerate(preps.items()):
-        prep_filter += (f" AND (prep_lists->>{i}) IS NOT NULL"
-                        f" AND list_has_all(from_json(prep_lists->>{i},"
-                        f" '[\"VARCHAR\"]'), {value})"
-                        )
+        prep_filter += f"""AND map_contains(preps, '{key}')
+                           AND list_has_all(preps['{key}'], {value})
+                        """
     sql = base_sql + prep_filter
     return sql
