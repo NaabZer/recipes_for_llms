@@ -18,8 +18,8 @@ def reciprocal_rank(ranked_ds: pl.dataframe.frame.DataFrame, correct_idx: int):
     return 1 / filtered_ds.select('id')[0, 0]
 
 
-def rank_results(ds: pl.DataFrame, embedding: scipy.sparse._csr.csr_matrix,
-                 embedding_col='tfidf'):
+def rank_BOW_results(ds: pl.DataFrame, embedding: scipy.sparse._csr.csr_matrix,
+                     embedding_col='tfidf'):
     similarities = cosine_similarity(embedding,
                                      scipy.sparse.vstack(ds[embedding_col]))
     ranked_ds = ds.with_columns(
