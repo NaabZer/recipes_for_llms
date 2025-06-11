@@ -36,7 +36,7 @@
 \usepackage{hyperref}
 
 
-\title{Natural Language Processing for efficient recipe retrieval}
+\title{Unidirectional recipe search using custom NER models}
 \date{}
 \author{Anton Gefvert \\ Linköping University}
 
@@ -47,24 +47,91 @@
 \end{abstract}
 
 \section{Introduction}
+\section{Introduction}
+Recently, there has been a significant increase of applications leveraging LLM
+agents to perform diverse tasks.
+Many of these applications make use of Retrieval Augmented Generation (RAG),
+which involves dynamically loading data into an LLM query without explicit user
+command or visibility.
+This enables LLMs to process more accurate and specific results.
+In this work, this concept is applied specifically to recipes, with the aim of
+creating a system to search through recipes using ingredients.
+This system can then be leveraged by an LLM agent to perform queries such as
+returning recipes or serving as a reference when creating new ones.
+
+Ingredient lists for recipes possess characteristics that are particularly
+relevant for developing a more nuanced search algorithm.
+Among these, preparations and variants are of specific interest.
+Preparations refer to how food is prepared (e.g., ``2 Tomatoes, \emph{chopped
+into cubes}'' or ``3 red onions \emph{sliced thinly}''), while variants denote
+specific ingredient variations (e.g., ``3 \emph{Roma} tomatoes'' or ``1 large
+\emph{granny smith} apple'').
+
+Typically, when searching for recipes, a user would most likely input general
+terms such as ``tomatoes'' or ``apples'' to find recipes containing those
+ingredients.
+However, in scenarios where a user has, for instance, excess sliced red onions
+and seeks a specific recipe for their utilization, or harbors a preference for
+the tartness of Granny Smith apples and desires tailored inspiration, a more
+sophisticated search capability becomes desirable.
+Nevertheless, forcing the search query to be overly specific (e.g., for ``sliced
+red onions'') is often counterproductive, as general ingredients (like red
+onions) can be prepared as needed.
+Similarly, for general ingredient searches (e.g., apples), recipes are likely to
+remain satisfactory even if a specific variant (like Granny Smith) is not
+precisely matched.
+
+This work operationalizes this concept by utilizing ingredient-list-specific
+Named Entity Recognition (NER) tags to establish uni-directional relationships
+between ingredients and their associated preparations and variants.
+This approach aims to demonstrate how fine-grained semantic understanding,
+enabled by NER, can significantly enhance recipe retrieval systems, paving the
+way for more intuitive and flexible culinary exploration tools.
 
 \section{Theory}
+To understand all parts of this report, some theory for things not discussed in
+the TDDE16 course will be briefly explained.
+\subsection{Top-K Accuracy}
+Top-K Accuracy is an evaluation method for ranking algorithms.
+Top-K Accuracy looks at, for all your ranking queries, in how many of them is the
+target in the Top-K results.
+The formula would be $\frac{\text{queries where target in top K}}{\text{number of
+queries}}$, giving a fraction between $0$ and $1$\cite{topkacc}.
+\subsection{Mean Reciprocal Rank}
+Reciprocal Rank describes how well a relevant document is ranked in a list of
+documents, quantified as a value between $0$ and $1$.
+Reciprocal Rank is calculated using the formula $RR = 1/rank$ where $rank$ is the
+rank in the list of documents, so if the relevant document is found at position
+$5$, the reciprocal rank would be $1/5 = 0.2$.
+
+Mean Reciprocal Rank (MRR) is the mean of the reciprocal rank over all queries,
+calculated using the formula $MRR = \frac{1}{|Q|} \sum_{q=1}^Q{RR_q}$ where $Q$ is
+the set of all queries and $RR_q$ is the reciprocal rank for query $q \in
+Q$~\cite{mrr}.
+\subsection{Best Match 25}
+Best Match 25 (BM25) is a probabilistic ranking function widely used in
+information retrieval to determine the relevance of documents to a given query.
+It builds upon the TF-IDF (Term Frequency-Inverse Document Frequency) model by
+introducing two key improvements: term frequency saturation (where repeated
+occurrences of a term contribute less to relevance over time) and document
+length normalization. These enhancements, controlled by adjustable parameters,
+allow BM25 to more accurately rank documents than simpler TF-IDF
+approaches~\cite{ogBM25, improvmenetsBM25}.
 
 \section{Data}
+In this work, two premade datasets are used,
+\emph{RecipeNLG}\footnote{\url{https://www.kaggle.com/datasets/paultimothymooney/recipenlg}}
+containing over 2 million recipes, as well as
+\emph{TASTEset}\footnote{\url{https://github.com/taisti/TASTEset}}, a dataset of
+700 recipes with ingredient-specific NER tags.
+
+A third dataset, made by relabeling some of the NER tags in the TASTEset dataset,
+as well as labeling some of the data in the RecipeNLG using the NER tags
+described in Section~\ref{sec:ner_tags} was also created by manually labeling
+data in Label Studio~\cite{LabelStudio}.
 
 \section{Method}
-\subsection{Baselines}
-\begin{itemize}
-    \item BOW (tfidf)
-    \item BERT embeddings
-\end{itemize}
-
-\subsection{Better methods}
-\begin{itemize}
-    \item BOW using NER filtering
-    \item NER based parquet + duckdb database with custom scoring function
-    \item GraphDB database (this most likely also needs a scoring function)
-\end{itemize}
+To create and evaluate this uni-directional relationship based retrieval system, 
 
 \subsection{Evaluation Tasks}
 To see if the developed models performs the task of recipe retrieval from
@@ -132,27 +199,37 @@ described below:
         and quartered artichoke hearts; smoked turkey breast, cubed''.
         This is used to see if filtering on particular preparations can find
         very specific recipies.
+\end{itemize}o
+
+\paragraph{Negated Queries} --- For this task, the original ingredient data is
+transformed destructively to create a task where the objective is to \emph{not}
+be able to find the original recipe when inputting the transformed data.
+Since the task is inverted, so are the evaluation metrics, i.e.\ we use
+$1-\text{MRR}$ and $1-\text{P@5}$ to evaluate these tasks.
+
+The data is transformed in the following ways:
+\begin{itemize}
+    \item \textbf{Randomly add preparation steps} --- Random preparation steps
+        are appended to $40\%$ (minimum 1) of the lines in the ingredient list.
+        This tests how well we filter away recipes that does not contain the
+        preparations we have performed.
+    \item \textbf{something} --- something
 \end{itemize}
+
 
 \subsubsection{Query Speed}
-To serve large langue models with a large amount of users, we need an efficient
-system for querying our data, therefore query speed is an important factor in
-deciding which method would be optimal for a specific use-case.
+Another important part of information retrieval systems is query speed,
+therefore query speeds are also measured on all the tasks described in
+Section~\ref{sec:modelperfomance}.
 
-Since the models using only embeddings would require a cutoff point for
-maximum number of results, different max number of results should be tested.
+\subsection{Baselines}
+\subsubsection{BOW (tfidf)}
 
-Query speeds are measured on all the tasks described in
-Section~\ref{sec:modelperfomance}, as well as some custom query tasks
-specifically constructed to test potentially slow queries, as described below:
-\begin{itemize}
-    \item \textbf{A very broad query} --- Something like ``salt'', and see how it
-        handles a query that should find a lot of results.
-    \item \textbf{A very specfic query} --- A very specific query that should
-        return one or two recipies only.
-    \item \textbf{A completely random query} --- A query of random ingredients,
-        this should most likely not return anything at all.
-\end{itemize}
+\subsubsection{SentenceBERT embeddings}
+
+\subsection{NER based parquet + duckdb database with custom scoring function}
+
+\subsubsection{NER Tags}\label{sec:ner_tags}
 
 \subsection{Ranking}
 We need some way to perform ranking of the different models.
@@ -191,6 +268,9 @@ I also want to create a model using tfidf and filtering methods.
 \section{Results}
 \section{Discussion}
 \section{Conclusion}
+
+\bibliography{references}
+
 
 \end{document}
 

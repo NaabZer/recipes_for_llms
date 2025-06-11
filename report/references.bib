@@ -51,8 +51,6 @@
     title="A Fine-Tuned Bidirectional Encoder Representations From Transformers Model for Food Named-Entity Recognition: Algorithm Development and Validation",
     journal="J Med Internet Res",
     year="2021",
-    month="Aug",
-    day="9",
     volume="23",
     number="8",
     pages="e28229",
@@ -95,13 +93,11 @@
     year = {2016},
     isbn = {9781450342322},
     publisher = {Association for Computing Machinery},
-    address = {New York, NY, USA},
     url = {https://doi-org.e.bibl.liu.se/10.1145/2939672.2939751},
     doi = {10.1145/2939672.2939751},
     abstract = {Graph embedding algorithms embed a graph into a vector space where the structure and the inherent properties of the graph are preserved. The existing graph embedding methods cannot preserve the asymmetric transitivity well, which is a critical property of directed graphs. Asymmetric transitivity depicts the correlation among directed edges, that is, if there is a directed path from u to v, then there is likely a directed edge from u to v. Asymmetric transitivity can help in capturing structures of graphs and recovering from partially observed graphs. To tackle this challenge, we propose the idea of preserving asymmetric transitivity by approximating high-order proximity which are based on asymmetric transitivity. In particular, we develop a novel graph embedding algorithm, High-Order Proximity preserved Embedding (HOPE for short), which is scalable to preserve high-order proximities of large scale graphs and capable of capturing the asymmetric transitivity. More specifically, we first derive a general formulation that cover multiple popular high-order proximity measurements, then propose a scalable embedding algorithm to approximate the high-order proximity measurements based on their general formulation. Moreover, we provide a theoretical upper bound on the RMSE (Root Mean Squared Error) of the approximation. Our empirical experiments on a synthetic dataset and three real-world datasets demonstrate that HOPE can approximate the high-order proximities significantly better than the state-of-art algorithms and outperform the state-of-art algorithms in tasks of reconstruction, link prediction and vertex recommendation.},
     booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
     pages = {1105–1114},
-    numpages = {10},
     keywords = {high-order proximity, graph embedding, directed graph, asymmetric transitivity},
     location = {San Francisco, California, USA},
     series = {KDD '16}
@@ -140,13 +136,11 @@
     year = {2014},
     isbn = {9781450330008},
     publisher = {Association for Computing Machinery},
-    address = {New York, NY, USA},
     url = {https://doi.org/10.1145/2682862.2682863},
     doi = {10.1145/2682862.2682863},
     abstract = {Recent work on search engine ranking functions report improvements on BM25 and Language Models with Dirichlet Smoothing. In this investigation 9 recent ranking functions (BM25, BM25+, BM25T, BM25-adpt, BM25L, TF1°δ°p\texttimes{}ID, LM-DS, LM-PYP, and LM-PYP-TFIDF) are compared by training on the INEX 2009 Wikipedia collection and testing on INEX 2010 and 9 TREC collections. We find that once trained (using particle swarm optimization) there is very little difference in performance between these functions, that relevance feedback is effective, that stemming is effective, and that it remains unclear which function is best over-all.},
     booktitle = {Proceedings of the 19th Australasian Document Computing Symposium},
     pages = {58–65},
-    numpages = {8},
     keywords = {Document Retrieval, Procrastination, Relevance Ranking},
     location = {Melbourne, VIC, Australia},
     series = {ADCS '14}
@@ -157,7 +151,6 @@
     author = {Salton, G. and Wong, A. and Yang, C. S.},
     title = {A vector space model for automatic indexing},
     year = {1975},
-    issue_date = {Nov. 1975},
     publisher = {Association for Computing Machinery},
     address = {New York, NY, USA},
     volume = {18},
@@ -169,7 +162,6 @@
     journal = {Commun. ACM},
     month = nov,
     pages = {613–620},
-    numpages = {8},
     keywords = {document space, content analysis, automatic information retrieval, automatic indexing}
 }
 
@@ -183,4 +175,38 @@
       archivePrefix={arXiv},
       primaryClass={cs.IR},
       url={https://arxiv.org/abs/2407.03618}, 
+}
+
+
+# --- eval ---
+
+@inproceedings{mrr,
+  title={The TREC-8 Question Answering Track Evaluation.},
+  author={Voorhees, Ellen M and Tice, Dawn M and others},
+  booktitle={TREC},
+  volume={1999},
+  pages={82},
+  year={1999}
+}
+
+@article{topkacc,
+  title={Imagenet classification with deep convolutional neural networks},
+  author={Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
+  journal={Advances in neural information processing systems},
+  volume={25},
+  year={2012}
+}
+
+# --- Other ---
+
+@misc{LabelStudio,
+    title={{Label Studio}: Data labeling software},
+    url={https://github.com/HumanSignal/label-studio},
+    note={Open source software available from https://github.com/HumanSignal/label-studio},
+    author={
+            Maxim Tkachenko and
+            Mikhail Malyuk and
+            Andrey Holmanyuk and
+            Nikolai Liubimov},
+    year={2020-2025},
 }
