@@ -501,4 +501,8 @@ TSWLatexianTemp*
 *.pdf
 
 # End of https://www.toptal.com/developers/gitignore/api/latex
-
+/app/**/*.parquet
+/app/**/*.json
+/app/**/*.jsonl
+/app/**/*.cfg
+/app/**/output_eff/
