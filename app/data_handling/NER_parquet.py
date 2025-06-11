@@ -1,6 +1,8 @@
 import spacy
 import duckdb
 import polars as pl
+import os
+import os.path
 from pydantic import BaseModel
 from app.data_handling.preprocessing import nlp
 
@@ -33,7 +35,8 @@ def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
         brand_lemmas = []
     for t in ingredient_doc.ents:
         if t.label_ == 'Food':
-            lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
+            # lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
+            lemmas = [w.lemma_.lower() for w in nlp(str(t)) if not w.is_punct]
             food_lemmas.append(lemmas)
             # Add a new list of preparation that corresponds to a
             # new food item on the same line
@@ -43,17 +46,20 @@ def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
             if include_brand:
                 brand_lemmas.append([])
         elif t.label_ == 'Preparation':
-            lemmas = [w.lemma_.lower() for w in nlp(str(t))]
+            # lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
+            lemmas = [w.lemma_.lower() for w in nlp(str(t)) if not w.is_punct]
             if len(prep_lemmas) == 0:
                 prep_lemmas.append([])
             prep_lemmas[-1] = prep_lemmas[-1] + lemmas
         elif include_variety and t.label_ == 'Variety':
-            lemmas = [w.lemma_.lower() for w in nlp(str(t))]
+            # lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
+            lemmas = [w.lemma_.lower() for w in nlp(str(t)) if not w.is_punct]
             if len(var_lemmas) == 0:
                 var_lemmas.append([])
             var_lemmas[-1] = var_lemmas[-1] + lemmas
         elif include_brand and t.label_ == 'Brand':
-            lemmas = [w.lemma_.lower() for w in nlp(str(t))]
+            # lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
+            lemmas = [w.lemma_.lower() for w in nlp(str(t)) if not w.is_punct]
             if len(brand_lemmas) == 0:
                 brand_lemmas.append([])
             brand_lemmas[-1] = brand_lemmas[-1] + lemmas
@@ -92,12 +98,16 @@ def transform_ingredients_to_tokens(
         remove_optional: bool = False,
         exclude_list: list[str] | None = exclude_list
         ):
+    """
     if type(ingredients) is str:
         ingr_str = ingredients
     else:
         ingr_str = "\n".join(ingredients)
     ner_ingr = ner_model(ingr_str)
     ner_lines = split_recipe_obj_to_sentences(ner_ingr)
+    """
+    ner_lines = [ner_model(ingredient_line) for ingredient_line in ingredients]
+
     foods = []
     preparations = {}
     optionals = []
@@ -246,7 +256,13 @@ def transform_data_to_tokens(data: list[str],
 
 
 def create_parquet_file(parquet_path: str, df: pl.DataFrame,
-                        fields: list[ParquetDefinition]):
+                        fields: list[ParquetDefinition],
+                        force_overwrite=False
+                        ):
+    if os.path.isfile(parquet_path) and not force_overwrite:
+        return parquet_path
+    elif os.path.isfile(parquet_path) and force_overwrite:
+        os.remove(parquet_path)
     cols_to_add = [pl.Series(name=pq.name, values=pq.data) for pq in fields]
     new_df = df.with_columns(*cols_to_add)
     new_df.write_parquet(parquet_path)
