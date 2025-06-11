@@ -33,7 +33,7 @@ def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
         brand_lemmas = []
     for t in ingredient_doc.ents:
         if t.label_ == 'Food':
-            lemmas = [w.lemma_.lower() for w in nlp(str(t))]
+            lemmas = [w.lemma_.lower() for w in t if not w.is_punct]
             food_lemmas.append(lemmas)
             # Add a new list of preparation that corresponds to a
             # new food item on the same line
@@ -69,6 +69,20 @@ def process_ingredient(ingredient_doc: spacy.tokens.doc.Doc,
     return ret_obj
 
 
+def split_recipe_obj_to_sentences(ingredient_doc: spacy.tokens.doc.Doc):
+    last_whitespace = False
+    for o in ingredient_doc[1:]:  # Skip first since it is sent_start
+        if last_whitespace:
+            o.is_sent_start = True
+            last_whitespace = False
+        else:
+            o.is_sent_start = False
+
+        if o.is_space:
+            last_whitespace = True
+    return [sent.as_doc() for sent in ingredient_doc.sents]
+
+
 def transform_ingredients_to_tokens(
         ingredients: list[str] | str,
         ner_model: spacy.lang.en.English,
@@ -78,7 +92,12 @@ def transform_ingredients_to_tokens(
         remove_optional: bool = False,
         exclude_list: list[str] | None = exclude_list
         ):
-    ner_lines = [ner_model(ingredient_line) for ingredient_line in ingredients]
+    if type(ingredients) is str:
+        ingr_str = ingredients
+    else:
+        ingr_str = "\n".join(ingredients)
+    ner_ingr = ner_model(ingr_str)
+    ner_lines = split_recipe_obj_to_sentences(ner_ingr)
     foods = []
     preparations = {}
     optionals = []
@@ -101,7 +120,7 @@ def transform_ingredients_to_tokens(
 
         # If there's only one food, all preps etc would belong to that food
         food = "_".join(processed_line_obj['food'][0])
-        if food in exclude_list:
+        if exclude_list and food in exclude_list:
             continue
         foods.append(food)
         if len(processed_line_obj['food']) == 1:
@@ -192,7 +211,8 @@ def transform_data_to_tokens(data: list[str],
                 include_variety=include_variety,
                 include_brand=include_brand,
                 use_alternate_food=use_alternate_food,
-                remove_optional=remove_optional
+                remove_optional=remove_optional,
+                exclude_list=exclude_list
                 )
         tokens.append(datapoint_obj['foods'])
         prep_dict = datapoint_obj['preps']
