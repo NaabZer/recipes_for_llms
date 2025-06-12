@@ -29,6 +29,10 @@
         "cream cheese",
         "milk",
         "chopped pinapple"
+    ],
+    "human_adv_subset_ingredients": [
+        "red cake mix",
+        "chopped pinapple"
     ]
   },
   {
@@ -60,6 +64,10 @@
         "sugar",
         "chopped cheddar cheese",
         "ritz crackers",
+        "butter, cut into cubes"
+    ],
+    "human_adv_subset_ingredients": [
+        "chopped cheddar cheese",
         "butter, cut into cubes"
     ]
   },
@@ -110,6 +118,12 @@
         "chili powder",
         "cumin",
         "brown rice, fried"
+    ],
+    "human_adv_subset_ingredients": [
+        "sliced onion",
+        "garlic, crushed",
+        "tomatoes, thinly sliced",
+        "brown rice, fried"
     ]
   },
   {
@@ -134,6 +148,9 @@
         "butter",
         "sifted flour",
         "powdered sugar"
+    ],
+    "human_adv_subset_ingredients": [
+        "sifted flour"
     ]
   },
   {
@@ -170,6 +187,11 @@
         "coconut flakes",
         "whipped topping",
         "crushed pecans"
+    ],
+    "human_adv_subset_ingredients": [
+        "red cake mix",
+        "chopped pinapple",
+        "crushed pecans"
     ]
   },
   {
@@ -199,6 +221,10 @@
         "large marshmallows",
         "pinapples, chopped",
         "rice"
+    ],
+    "human_adv_subset_ingredients": [
+        "large marshmallows",
+        "pinapples, chopped"
     ]
   },
   {
@@ -239,6 +265,11 @@
         "tomatoes",
         "pimentos",
         "parmesan cheese"
+    ],
+    "human_adv_subset_ingredients": [
+        "apple cider vinegar",
+        "chopped up lettuce",
+        "red onion, chopped into cubes"
     ]
   },
   {
@@ -275,6 +306,11 @@
         "oil",
         "cinnamon",
         "nutmeg",
+        "fried egg",
+        "crushed nuts"
+    ],
+    "human_adv_subset_ingredients": [
+        "all-purpose flour",
         "fried egg",
         "crushed nuts"
     ]
@@ -314,6 +350,10 @@
         "green pepper",
         "yellow pepper",
         "red pepper"
+    ],
+    "human_adv_subset_ingredients": [
+        "fried turkey breast, chopped",
+        "artichoke hearts, seared and halved"
     ]
   },
   {
@@ -346,6 +386,11 @@
         "fresh beef, cut into pieces",
         "sour cream",
         "worcestershire sauce",
+        "large onion, sliced"
+    ],
+    "human_adv_subset_ingredients": [
+        "red pepper",
+        "fresh beef, cut into pieces",
         "large onion, sliced"
     ]
   },
@@ -382,6 +427,11 @@
         "powdered sugar",
         "sugar",
         "cherry filling"
+    ],
+    "human_adv_subset_ingredients": [
+        "graham crackers, crushed",
+        "margarine, melted",
+        "dream whip, whipped"
     ]
   },
   {
@@ -427,6 +477,11 @@
         "bread crumbs",
         "egg, fried",
         "brown sugar"
+    ],
+    "human_adv_subset_ingredients": [
+        "large sliced onion",
+        "dijon mustard",
+        "egg, fried"
     ]
   },
   {
@@ -479,6 +534,12 @@
         "garlic salt",
         "oregano",
         "pepperoni pieces"
+    ],
+    "human_adv_subset_ingredients": [
+        "bow-tie macaroni, uncooked",
+        "sliced onion",
+        "shredded mozzarella cheese",
+        "pepperoni pieces"
     ]
   },
   {
@@ -517,6 +578,11 @@
         "julienned parsley",
         "noodles",
         "sliced soft-boiled eggs"
+    ],
+    "human_adv_subset_ingredients": [
+        "chicken, sliced into strips",
+        "julienned parsley",
+        "sliced soft-boiled eggs"
     ]
   },
   {
@@ -548,6 +614,10 @@
         "hash browns",
         "margarine",
         "cream of mushroom soup",
+        "sliced cheddar cheese"
+    ],
+    "human_adv_subset_ingredients": [
+        "sliced onion",
         "sliced cheddar cheese"
     ]
   },
@@ -584,6 +654,10 @@
         "all-purpose flour",
         "bread crumbs",
         "oil"
+    ],
+    "human_adv_subset_ingredients": [
+        "veal cutlets, roughly chopped",
+        "all-purpose flour"
     ]
   },
   {
@@ -613,6 +687,10 @@
         "scallions, sliced",
         "mayonnaise",
         "curry"
+    ],
+    "human_adv_subset_ingredients": [
+        "cheddar cheese, chopped",
+        "scallions, sliced"
     ]
   },
   {
@@ -642,6 +720,10 @@
         "standard french chocolate cake mix",
         "butter",
         "chocolate morsels, melted"
+    ],
+    "human_adv_subset_ingredients": [
+        "standard french chocolate cake mix",
+        "chocolate morsels, melted"
     ]
   },
   {
@@ -668,6 +750,10 @@
         "onion, sliced",
         "egg",
         "bread crumbs"
+    ],
+    "human_adv_subset_ingredients": [
+        "fresh atlantic salmon",
+        "onion, sliced"
     ]
   },
   {
@@ -694,6 +780,10 @@
         "french dressing",
         "mushroom soup",
         "vermouth"
+    ],
+    "human_adv_subset_ingredients": [
+        "whole chicken breast, bone-in",
+        "french dressing"
     ]
   },
   {
@@ -739,6 +829,12 @@
         "butter",
         "sweetened applesauce",
         "egg yolks"
+    ],
+    "human_adv_subset_ingredients": [
+        "whole cinnamon stick",
+        "powdered stevia",
+        "sweetened applesauce",
+        "egg yolks"
     ]
   },
   {
@@ -765,6 +861,10 @@
         "milk",
         "radishes, thickly sliced",
         "dill"
+    ],
+    "human_adv_subset_ingredients": [
+        "cream cheese, hardened",
+        "radishes, thickly sliced"
     ]
   },
   {
@@ -785,6 +885,9 @@
     "human_adv_ingredients": [
         "cheap dark chocolate",
         "chocolate cake"
+    ],
+    "human_adv_subset_ingredients": [
+        "cheap dark chocolate"
     ]
   },
   {
@@ -814,6 +917,10 @@
         "fish 'n chips batter",
         "ranch dip mix",
         "sour cream",
+        "seed oil"
+    ],
+    "human_adv_subset_ingredients": [
+        "2 small yellow onions",
         "seed oil"
     ]
   },
@@ -862,6 +969,12 @@
         "fresh thyme",
         "caraway seed",
         "chicken stock"
+    ],
+    "human_adv_subset_ingredients": [
+        "smoked beef brisket",
+        "potatoes, sliced",
+        "carrots, chopped into chunks",
+        "fresh thyme"
     ]
   },
   {
@@ -888,6 +1001,10 @@
         "crushed banana",
         "flaked coconut",
         "chocolate chips"
+    ],
+    "human_adv_subset_ingredients": [
+        "unpitted dates, chopped",
+        "crushed banana"
     ]
   },
   {
@@ -916,6 +1033,10 @@
         "eggs, fried",
         "cracker, chopped",
         "breadcrumbs"
+    ],
+    "human_adv_subset_ingredients": [
+        "eggs, fried",
+        "cracker, chopped"
     ]
   },
   {
@@ -960,6 +1081,11 @@
         "bananas, chopped",
         "toffee bars, crushed",
         "heavy cream"
+    ],
+    "human_adv_subset_ingredients": [
+        "self-rising flour",
+        "bananas, chopped",
+        "toffee bars, crushed"
     ]
   },
   {
@@ -1017,6 +1143,12 @@
         "rice vinegar",
         "chives",
         "bread"
+    ],
+    "human_adv_subset_ingredients": [
+        "skin-on chicken breast, chopped",
+        "proscuitto, chopped",
+        "roughly chopped tarragon",
+        "rice vinegar"
     ]
   },
   {
@@ -1051,6 +1183,11 @@
         "unripe plums",
         "strawberries",
         "orange juice"
+    ],
+    "human_adv_subset_ingredients": [
+        "black tea leaves",
+        "unripe peaches",
+        "unripe plums"
     ]
   },
   {
@@ -1097,6 +1234,11 @@
         "greek curd",
         "chili peppers",
         "brown sugar"
+    ],
+    "human_adv_subset_ingredients": [
+        "apples, chopped",
+        "bananas, sliced",
+        "cucumber, crushed"
     ]
   },
   {
@@ -1158,6 +1300,14 @@
         "shallot, roughly chopped",
         "tamari",
         "vinegar"
+    ],
+    "human_adv_subset_ingredients": [
+        "salted butter",
+        "spinach, chopped",
+        "small cauliflower florette",
+        "sweetened coconut milk",
+        "fresh mushroom",
+        "shallot, roughly chopped"
     ]
   },
   {
@@ -1183,6 +1333,9 @@
         "cooked grits",
         "canned corn",
         "spreadable cheese"
+    ],
+    "human_adv_subset_ingredients": [
+        "cooked grits"
     ]
   },
   {
@@ -1218,6 +1371,11 @@
         "eggs",
         "cheese",
         "sliced kalamaata olives"
+    ],
+    "human_adv_subset_ingredients": [
+        "salted butter",
+        "sea salt",
+        "sliced kalamata olives"
     ]
   },
   {
@@ -1275,6 +1433,13 @@
         "lime juice",
         "julienned dried cilantro",
         "lime"
+    ],
+    "human_adv_subset_ingredients": [
+        "long-grain rice",
+        "peanut oil",
+        "diced onion",
+        "whole garlic",
+        "julienned dried cilantro"
     ]
   },
   {
@@ -1307,6 +1472,11 @@
         "onion powder",
         "self-rising flour",
         "evaporated milk",
+        "grated cheddar cheese"
+    ],
+    "human_adv_subset_ingredients": [
+        "large spinach, sliced",
+        "self-rising flour",
         "grated cheddar cheese"
     ]
   },
@@ -1346,6 +1516,12 @@
         "almond extract",
         "quartered stella cherries",
         "almonds"
+    ],
+    "human_adv_subset_ingredients": [
+        "sweet chocolate chips",
+        "butter, hardened",
+        "unsweetened condensed milk",
+        "quartered stella cherries"
     ]
   },
   {
@@ -1394,6 +1570,11 @@
         "unpitted cherries",
         "sugar",
         "cornstarch"
+    ],
+    "human_adv_subset_ingredients": [
+        "self-rising flour",
+        "egg, beaten",
+        "unpitted cherries"
     ]
   },
   {
@@ -1430,6 +1611,11 @@
         "sugar",
         "green plums, chopped",
         "almon biscotti"
+    ],
+    "human_adv_subset_ingredients": [
+        "tart red wine",
+        "ground cinnamon",
+        "green plums, chopped"
     ]
   },
   {
@@ -1484,6 +1670,12 @@
         "milk",
         "oil",
         "lime juice"
+    ],
+    "human_adv_subset_ingredients": [
+        "shallot, sliced",
+        "crushed garlic",
+        "ground cinnamon",
+        "star anise, crushed"
     ]
   },
   {
@@ -1532,6 +1724,13 @@
         "bell pepper",
         "green peas",
         "tomato, sliced"
+    ],
+    "human_adv_subset_ingredients": [
+        "cooked quinoa",
+        "fresh thyme",
+        "onion, sliced",
+        "carrots, unpeeled and chopped",
+        "tomato, sliced"
     ]
   },
   {
@@ -1569,6 +1768,11 @@
         "soy sauce",
         "sugar",
         "cayenne"
+    ],
+    "human_adv_subset_ingredients": [
+        "carrots, chopped",
+        "radish, sliced",
+        "apple cider vinegar"
     ]
   },
   {
@@ -1592,9 +1796,13 @@
         "lemon"
     ],
     "human_adv_ingredients": [
-        "chicken",
+        "chicken parts",
         "lemon",
         "oil",
+        "french seasoning"
+    ],
+    "human_adv_subset_ingredients": [
+        "chicken parts",
         "french seasoning"
     ]
   },
@@ -1645,6 +1853,11 @@
         "maple syrup",
         "honey",
         "soy sauce"
+    ],
+    "human_adv_subset_ingredients": [
+        "bone-in, skin-on whole chicken breasts",
+        "egg, beaten",
+        "seed oil"
     ]
   },
   {
@@ -1684,6 +1897,12 @@
         "grated gorgonzola cheese",
         "red onions",
         "italian dressing"
+    ],
+    "human_adv_subset_ingredients": [
+        "spagetthi pasta, raw",
+        "sliced, raw chicken",
+        "tomatoes, diced",
+        "grated gorgonzola cheese"
     ]
   },
   {
@@ -1727,6 +1946,11 @@
         "corn flakes, chopped",
         "pecans",
         "butter"
+    ],
+    "human_adv_subset_ingredients": [
+        "butternut squash, quartered",
+        "apples (granny smith)",
+        "corn flakes, chopped"
     ]
   },
   {
@@ -1759,6 +1983,10 @@
         "lemon juice",
         "hot sauce",
         "worcestershire sauce"
+    ],
+    "human_adv_subset_ingredients": [
+        "egg yolks",
+        "salted butter"
     ]
   },
   {
@@ -1808,6 +2036,14 @@
         "sliced red pepper",
         "parmesan cheese",
         "red vinegar"
+    ],
+    "human_adv_subset_ingredients": [
+        "fresh mushroom ravioli",
+        "asparagus, chopped",
+        "dry basil, ground",
+        "chopped garlic",
+        "sliced red pepper",
+        "red vinegar"
     ]
   },
   {
@@ -1847,6 +2083,12 @@
         "egg white, not beaten",
         "heavy cream",
         "creme fraiche"
+    ],
+    "human_adv_subset_ingredients": [
+        "frozen cranberries",
+        "ground cinnamon",
+        "self-rising flour",
+        "egg white, not beaten"
     ]
   },
   {
@@ -1885,6 +2127,10 @@
         "sweet chocolate, crushed",
         "heavy cream",
         "dark rum"
+    ],
+    "human_adv_subset_ingredients": [
+        "pinapple, chopped into pieces",
+        "sweet chocolate, crushed"
     ]
   }
-]
+],
