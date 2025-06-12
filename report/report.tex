@@ -122,7 +122,7 @@ approaches~\cite{ogBM25, improvmenetsBM25}.
 In this work, two premade datasets are used,
 \emph{RecipeNLG}\footnote{\url{https://www.kaggle.com/datasets/paultimothymooney/recipenlg}}
 containing over 2 million recipes, as well as
-\emph{TASTEset}\footnote{\url{https://github.com/taisti/TASTEset}}, a dataset of
+\emph{TASTEset}~\cite{TASTEset}, a dataset of
 700 recipes with ingredient-specific NER tags.
 
 A third dataset, made by relabeling some of the NER tags in the TASTEset dataset,
@@ -268,7 +268,86 @@ embeddings and the query embedding.
 The final ranked dataset is then used for the evaluation.
 
 \subsection{NER based database model}
+This is proposed model specifically developed for this project.
+The system as a whole, uses a custom trained NER model, trained on recipe data,
+to extract the different elements of an ingredient list and then constructs a
+database saved as a parquet~\footnote{\url{https://parquet.apache.org}} file,
+which is then queried using DuckDB~\cite{duckdb}.
+
 \subsubsection{NER Tags}\label{sec:ner_tags}
+The original idea for the creation of a NER model for recipes came from a blog
+post by~\citet{ingNerwb}, training a NER model on the \emph{TasteSET} dataset.
+Looking at this dataset however, the tags were insufficient.
+Thus this blog post and dataset were used as a base to create new NER tags, and
+the entire \emph{TasteSET} dataset was relabled using these new tags:
+\begin{enumerate}
+    \item \emph{Quantity}. Quantity of unit
+    \item \emph{Unit}. Unit, e.g.\ ``can'' or ``lbs''
+    \item \emph{Food}. Actual food item, e.g.\ ``Tomato'' or ``Chicken''
+    \item \emph{Variety}. Variety of food, e.g.\ ``Roma'' or ``whole grain''
+    \item \emph{Preparation}. Preparation of food, e.g.\ ``finely sliced'' or
+        ``boiled''
+    \item \emph{Alteration}. Reversible change in food, e.g. ``Frozen'', ``Room
+        temp''
+    \item \emph{Brand}. Brand, e.g.\ ``Hershey's'' or ``Santa Maria''
+    \item \emph{Optional}. If ingredient is optional, almost exclusively by
+        seeing if the word ``optional'' is written on the line.
+    \item \emph{State}. State which the user could not affect in any way, e.g.\
+        ``Large'' (as in ``Large egg'') or ``Fresh'' (as in ``Fresh
+        strawberries'')
+\end{enumerate}
+
+The \emph{Quantity}, \emph{Unit} and \emph{Food} tag are almost exclusively
+directly taken from \emph{TasteSet}, whereas the rest have slighltly different
+nuances.
+These tags where created to correctly label the properties we are interested in
+when querying, while adding some extra labels to avoid mislabeling of those
+labels.
+The labels that are the most interesting is \emph{Food}, \emph{Variety}, and
+\emph{Preparation}, in some cases also \emph{Optional} and {Brand}.
+The Labels \emph{Alteration} and \emph{State} is mainly used to make sure
+processes that are actually reversible are not labeled as preparation, or
+irrelevant states are not labeled as variants.
+For example, if something is frozen, we can thaw it, therefore frozen
+raspberries should be able to be used in a recipe with raspberries and vice
+versa.
+
+This tagged data is then used to train a spaCy~\cite{spacy} NER model, that
+extracts these NER tags from texts.
+
+\subsubsection{Database structure}
+To leverage our unidirectional relationships and have a queryable system, the
+recipes in our evaluation datasets are processed in the following way:
+\begin{enumerate}
+    \item The ingredient lists is passed through our NER model, one line at the
+        time.
+    \item Each line then has the following processing steps:
+        \begin{enumerate}
+            \item Extract any food tag found, lemmatize each token and append
+                any multi-token food with underscores between (e.g.\
+                ``olive\_oil'').
+            \item Preparations, Variants, and Brands are extracted into maps,
+                mapping food to a list containing each lemmatized token in the
+                respective category \\(e.g.\ \{``tomato'':\ [``slice'',\
+                ``fine'']\}).
+            \item Only the first food item is considered as a food, if any other
+                food items are found on the same line, these are added to
+                another list of alternate foods.
+            \item If there is any Optional entity in the line, the entire line
+                is marked as optional.
+        \end{enumerate}
+    \item All the items processed in step 2 are then collected into lists of food, 
+        alternate food, and optional, as well as maps for the three maps described in
+        step 2.b.
+\end{enumerate}
+The above processes is run for each recipe in the data, and then saved to a
+\emph{parquet} file, where the original recipe information, as well as the six newly
+added columns is saved.
+
+Note: In step 2.a, food items such as \emph{salt} and \emph{water} that are
+assumed to almost always be present is filtered away.
+
+\subsubsection{Querying}
 \subsubsection{Ranking}
 
 
