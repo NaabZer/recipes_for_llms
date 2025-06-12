@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 % Change "review" to "final" to generate the final (sometimes called camera-ready) version.
 % Change to "preprint" to generate a non-anonymous version with page numbers.
-\usepackage[review]{acl}
+\usepackage[final]{acl}
 
 % Standard package includes
 \usepackage{times}
@@ -35,44 +35,56 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 
+\usepackage{booktabs}
 
 \title{Unidirectional recipe search using custom NER models}
-\date{}
-\author{Anton Gefvert \\ Linköping University}
+\author{Anton Gefvert 
+\\ Linköping University
+\\ \texttt{antge210@student.liu.se} 
+}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-    lorem ipsum
+This work addresses the challenge of nuanced recipe retrieval for LLM agents
+leveraging Retrieval Augmented Generation (RAG).
+Traditional recipe search often overlooks specific ingredient preparations
+(e.g., ``chopped'') or varietals (e.g., ``Roma''), while an effective system
+must accommodate both specific user intent and the generalizability of
+ingredients.
+We propose a system utilizing ingredient-list-specific Named Entity Recognition
+(NER) to establish uni-directional relationships between ingredients,
+preparations, and variants, constructing a queryable database ranked by BM25.
+Experimental evaluation against TF-IDF and SentenceBERT baselines demonstrates
+that the developed model excels at filtering adversarial queries and achieves
+significantly faster query speeds.
+While general recipe retrieval performance is competitive, its core strength
+lies in handling specific ingredient nuances for more intuitive culinary
+exploration.
+Identified limitations include evaluation dataset characteristics and training
+data volume.
 \end{abstract}
+
 \section{Introduction}
 Recent advancements in LLM agents, often leveraging Retrieval Augmented
-Generation (RAG)~\cite{RAG}, enable more accurate and specific data processing
-for diverse tasks.
+Generation (RAG)~\cite{RAG}, enable more accurate data processing.
 This work applies these principles to recipe search, aiming to create a system
-that allows LLM agents to find and reference recipes based on their
-ingredients.
+for LLM agents to find and reference recipes based on ingredients.
 
-While conventional recipe searches typically focus on broad ingredient matching
-(e.g., ``tomatoes'') they often overlook the nuanced needs stemming from
-specific ingredient preparations (e.g., ``chopped into cubes'') or varietals
-(e.g., ``Roma'' tomatoes).
-A user might desire recipes specifically for ``sliced red onions'' to utilize
-excess ingredients, or seek inspiration for ``Granny Smith'' apples due to a
-particular preference.
-However, an effective search must also understand that a general ingredient
-(e.g., ``red onions'') can be prepared as needed, and a specific variant (e.g.,
-``Granny Smith'') may not be strictly essential for a recipe.
-This dynamic relationship, where a specific ingredient implies its general form,
-presents a key challenge for traditional retrieval systems.
+Conventional recipe searches typically overlook nuanced ingredient details like
+preparations (e.g., ``chopped'') or varietals (e.g., ``Roma'' tomatoes).
+Users often seek recipes for specific situations (e.g., using ``sliced red
+onions''), yet a search system must recognize that general ingredients can be
+prepared as needed, and specific variants are often interchangeable.
+This dynamic, uni-directional relationship—where a specific ingredient implies
+its general form—presents a key challenge for traditional retrieval.
 
-This work addresses this challenge by utilizing ingredient-list-specific Named
-Entity Recognition (NER) tags to establish uni-directional relationships
-between ingredients, their preparations, and variants.
-This fine-grained semantic understanding, enabled by NER, significantly
-enhances recipe retrieval systems, fostering more intuitive and flexible
-culinary exploration tools.
-
+This project addresses this by utilizing ingredient-list-specific Named Entity
+Recognition (NER) tags to establish these uni-directional relationships between
+ingredients, preparations, and variants.
+This fine-grained semantic understanding, enabled by NER, significantly enhances
+recipe retrieval systems, fostering more intuitive and flexible culinary
+exploration tools.
 \section{Theory}
 To understand all parts of this report, some theory for things not discussed in
 the TDDE16 course will be briefly explained.
@@ -128,7 +140,7 @@ on query handling time.
 
 \subsubsection{Model Performance}\label{sec:modelperfomance}
 Model performance was evaluated using nine distinct methods, primarily assessed
-by Mean Reciprocal Rank (MRR) and Top-K Accuracy.
+by Mean Reciprocal Rank (MRR) and Top-3 Accuracy.
 Queries were categorized into two groups: subset and adversarial.
 Evaluation utilized two query datasets: 50 recipes with four hand-crafted
 queries, and 1000 recipes with four computer-generated queries.
@@ -136,10 +148,13 @@ These were tested against three target datasets (1k, 10k, 100k recipes), all
 \emph{RecipeNLG} subsets that ensured query recipe presence.
 Full dataset testing was omitted due to time and hardware constraints.
 \paragraph{Subset Queries}
-Subset queries evaluate how well recipes are found using queries containing less information than the full recipe.
-These include an identity query, three LLM-generated queries, and two hand-crafted queries.
+Subset queries evaluate how well recipes are found using queries containing less
+information than the full recipe.
+These include an identity query, three LLM-generated queries, and two
+hand-crafted queries.
 
-\emph{Identity Query} --- This query directly uses the original recipe as input, serving as a sanity check for near-perfect results.
+\emph{Identity Query} --- This query directly uses the original recipe as input,
+serving as a sanity check for near-perfect results.
 
 \emph{LLM Processed Queries} --- Using 1000 random recipes, ingredient lists
 were rephrased by an LLM to mimic human input and rapidly generate a large query
@@ -171,7 +186,7 @@ repository.\footnote{\url{https://github.com/NaabZer/recipes_for_llms/blob/main/
 To evaluate unidirectional filtering, three adversarial query tasks were created.
 These queries mimic inputs containing more specific information than the
 original recipe, aiming \emph{not} to retrieve the original.
-Consequently, metrics are inverted: $1-MRR$ and $1-\text{Top-K Accuracy}$.
+Consequently, metrics are inverted: $1-MRR$ and $1-\text{Top-3 Accuracy}$.
 These tasks comprise one automatically generated query and two hand-crafted queries.
 
 \emph{Automatically added preparation suffixes} --- This query type appends
@@ -212,31 +227,24 @@ Parquet~\footnote{\url{https://parquet.apache.org}} file and queried using
 DuckDB~\cite{duckdb}.
 
 \subsubsection{NER Tags}\label{sec:ner_tags}
-The custom NER model was developed by refining an initial concept from a blog
-post~\cite{ingNerwb} that used the \emph{TasteSET} dataset.
-Finding the original \emph{TasteSET} tags insufficient, a new set of NER tags
-was created and used to relabel the entire \emph{TasteSET} dataset, as well as
-portions of \emph{RecipeNLG}.
-These nine custom tags include: \emph{Quantity} (amount of unit); \emph{Unit}
-(e.g., ``can'', ``lbs''); \emph{Food} (actual item, e.g., ``Tomato'',
-``Chicken''); \emph{Variety} (food variant, e.g., ``Roma'', ``whole grain'');
-\emph{Preparation} (food processing, e.g., ``finely sliced''); \emph{Alteration}
-(reversible change, e.g., ``Frozen''); \emph{Brand} (e.g., ``Hershey's'');
-\emph{Optional} (if ingredient is optional); and \emph{State} (user-unaffectable
-condition, e.g., ``Large egg'', ``Fresh strawberries'').
+A custom NER model was developed by refining an initial concept from a blog
+post~\cite{ingNerwb} using the \emph{TasteSET} dataset.
+As original \emph{TasteSET} tags were insufficient, a new set of nine NER tags
+was created and used to relabel the entire \emph{TasteSET} dataset and portions
+of \emph{RecipeNLG}.
+These tags are: \emph{Quantity}, \emph{Unit}, \emph{Food}, \emph{Variety},
+\emph{Preparation}, \emph{Alteration}, \emph{Brand}, \emph{Optional}, and
+\emph{State}.
 
-While \emph{Quantity}, \emph{Unit}, and \emph{Food} tags largely align with
-\emph{TasteSET}, others incorporate nuanced distinctions.
-These tags were designed to accurately label properties relevant for querying,
-with \emph{Food}, \emph{Variety}, and \emph{Preparation} being most central,
-alongside \emph{Optional} and \emph{Brand} in some cases.
-\emph{Alteration} and \emph{State} primarily ensure reversible processes are not
-mislabeled as preparations, and irrelevant states are not conflated with
-variants.
-For instance, frozen raspberries should match recipes requiring raspberries, as
-freezing is reversible.
-
-This tagged data then trained a spaCy~\cite{spacy} NER model to extract these tags from text.
+While \emph{Quantity}, \emph{Unit}, and \emph{Food} largely align with
+\emph{TasteSET}, the remaining tags introduce nuanced distinctions.
+These tags primarily aim to label properties relevant for querying, particularly
+\emph{Food}, \emph{Variety}, and \emph{Preparation}.
+\emph{Alteration} and \emph{State} prevent mislabeling reversible changes as
+preparations or irrelevant states as variants (e.g., frozen raspberries should
+match fresh raspberries).
+This tagged data then trained a spaCy~\cite{spacy} NER model to extract these
+tags from text.
 
 \subsubsection{Database creation}\label{sec:dbStructure}
 To establish a queryable system leveraging unidirectional relationships, recipes
@@ -269,11 +277,9 @@ corresponding preparation tokens for each food in the query also exist in the
 database.
 For example, a query containing \{``tomato'': [``slice'']\} will match data with
 \{``tomato'': [``slice'', ``fine'']\}, but not \{``tomato'': [``chop'']\}.
-For testing, several query types were evaluated: combinations of food and
-preparations, food with preparations and variants, and both of these repeated
-with alternate food items joined.
-
-Example queries are detailed in Appendix X.
+For testing, several three types were evaluated: combinations of food and
+preparations, food with preparations and variants, and food with preparations
+and alternate foods.
 
 \subsubsection{Ranking}
 After querying, the returned data is an unranked subset requiring relevancy
@@ -286,25 +292,186 @@ the food tokens extracted from the query.
 While the model's output typically comprises the top recipes, the entire ranked
 result is used for evaluation purposes.
 
-\section{Results}
+\section{Results}\label{sec:res}
+The experimental results are presented in
+Tables~\ref{tab:sub_perf},~\ref{tab:adv_perf}, and!\ref{tab:query_speed}.
+Entries marked '---' indicate uncollected data; specifically, the
+\emph{SentenceBERT} model was only evaluated on the human-annotated 10K
+dataset.
+
+For the \emph{Subset Queries} task (Table~\ref{tab:sub_perf}), baseline models
+(TF-IDF, 0.79 T3A, 0.75 MRR on 10K) generally outperform the developed model
+variants.
+The base developed model (P) recorded lower scores (0.46 T3A, 0.43 MRR on 10K).
+A notable trend with increasing dataset size is performance degradation.
+While all models with collected data decline, the base developed model (P) shows
+less pronounced drop (e.g., TF-IDF from 0.79 to 0.57 T3A vs. P from 0.46 to 0.36
+T3A). P\_V and P\_A variants show less degradation or slight improvements when
+scaling to 100K.
+
+Conversely, for the \emph{Adversarial Queries} task (Table~\ref{tab:adv_perf}),
+the developed model variants (P, P\_V, P\_A) demonstrate significantly superior
+performance compared to baselines.
+Models ``P'', ``P\_V'', and ``P\_A'' achieved impressive Top-3 Accuracy (e.g., P at
+0.96) and MRR (e.g., P at 0.97) on both 10K and 100K datasets, indicating strong
+robustness in filtering irrelevant queries.
+Baselines showed limited effectiveness (e.g., TF-IDF 0.29 T3A on 10K).
+
+Regarding \emph{Query Speed} (Table~\ref{tab:query_speed}), the developed model
+(P) consistently outperforms baselines, achieving 13.7 QPS on 10K vs.\ TF-IDF's
+5.3 QPS and SBERT's 0.25 QPS\@.
+When scaling to 100K, P maintains a higher speed of 2.38 QPS, compared to
+TF-IDF's 0.58 QPS\@.
+This represents a lower slowdown factor for ``P'' (approx. 5.7x) than TF-IDF
+(approx. 9.1x). P\_V and P\_A models also exhibit significantly faster query
+speeds than baselines on 100K.
+
+\begin{table}[h!]
+    \centering
+    \caption{Average performance over \emph{Subset Queries} using Top-3 Accuracy
+    and Mean Reciprocal Rank, for 10K and 100K datasets
+respectively}\label{tab:sub_perf}
+    \begin{tabular}{l c c c c}
+        \toprule
+        & \multicolumn{2}{c}{\textbf{10K}} & \multicolumn{2}{c}{\textbf{100K}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        \textbf{Model} & T3A & MRR & T3A& MRR \\
+        \midrule
+        TF-IDF & 0.79 & 0.75 & 0.57 & 0.62 \\
+        SBERT & 0.76 & 0.47 & --- & --- \\
+        P & 0.46 & 0.43 & 0.36 & 0.40 \\
+        P\_V & 0.43 & 0.41 & 0.38 & 0.34 \\
+        P\_A & 0.48 & 0.45 & 0.48 & 0.44 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\begin{table}[h!]
+    \centering
+    \caption{Average performance over \emph{Adversarial Queries} using Top-3
+    Accuracy and Mean Reciprocal Rank, for 10K and 100K datasets
+respectively}\label{tab:adv_perf}
+    \begin{tabular}{l c c c c}
+        \toprule
+        & \multicolumn{2}{c}{\textbf{10K}} & \multicolumn{2}{c}{\textbf{100K}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        \textbf{Model} & 1-T3A & 1-MRR & 1-T3A & 1-MRR \\
+        \midrule
+        TF-IDF & 0.29 & 0.31 & 0.45 & 0.46 \\
+        SBERT & 0.40 & 0.47 & --- & --- \\
+        P & 0.96 & 0.97 & 0.96 & 0.97 \\
+        P\_V & 0.99 & 0.99 & 0.99 & 0.99 \\
+        P\_A & 0.96 & 0.97 & 0.96 & 0.97 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\begin{table}[h!]
+    \centering
+    \caption{Average Queries per second, separated by dataset and
+    model}\label{tab:query_speed}
+    \begin{tabular}{l c c}
+        \toprule
+        \textbf{Model} & \textbf{10K} & \textbf{100K} \\
+        \midrule
+        TF-IDF & 5.3 & 0.58 \\
+        SBERT & 0.25 & --- \\
+        P & 13.7 & 2.38 \\
+        P\_V & 12.8 & 2.47 \\
+        P\_A & 12.1 & 2.03 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 \section{Discussion}
+\subsection{Methodological Considerations}
+The project's methodology, while offering valuable insights, faces limitations,
+necessitating caution in interpreting success. A primary concern is evaluation
+data: either unverified automatically generated or limited, subjectively
+hand-created points. Current evaluations, focusing on single recipe retrieval,
+contrast with an ideal scenario requiring datasets mapping queries to \emph{all}
+relevant recipes for granular metrics like Precision@K and
+Recall@K~\cite{manning2009introduction}.
+
+Training data scarcity is another limitation; all 850 recipes were hand-annotated.
+NER model performance improved significantly with more data, suggesting a
+larger, labeled dataset would enhance efficiency.  Related work,
+like~\citet{deepLearninNERModelRecipes} on recipe NER and~\citet{ExploitFoodEmb}
+on food embeddings for ingredient substitution, highlights this active research
+area.
+Our project uniquely focuses on establishing and leveraging unidirectional
+relationships for preparations and variants in nuanced recipe retrieval for LLM
+agents.
+
+Linguistic challenges also emerged: the model currently struggles with synonyms
+(e.g., ``diced'' vs.\ ``cut into cubes'') and hyponymy (e.g., ``Cheddar cheese''
+vs. ``Cheddar'').
+Addressing these requires deeper semantic understanding.
+Future work could also involve ingredient composition (e.g., recreating bread
+from flour, water, yeast) potentially using a graph-based database for intricate
+ingredient relationships.
+
+\subsection{Analysis of Results}
+Results from Section~\ref{sec:res} show the developed algorithm excels at
+adversarial tasks, effectively filtering incorrect unidirectional
+relationships.
+However, caution is advised: a model returning no results scores perfectly, and
+baselines lack explicit filtering, complicating direct comparison.
+
+While general subset query performance is lower than baselines, the developed
+model shows better scaling resilience with larger datasets.
+Crucially, it achieves significantly faster query speeds, suggesting suitability
+for responsive, filtered retrieval systems.
+However, as many real-world queries may not use specific preparations or
+variants, the primary benefit in common scenarios might be query speed.
+Optimized vector search engines could potentially nullify the observed speed
+advantage of the baselines.
+
 \section{Conclusion}
+This project developed a novel recipe retrieval system designed to enhance LLM
+agent capabilities through nuanced ingredient understanding.
+Utilizing a custom Named Entity Recognition (NER) model to establish
+uni-directional relationships between ingredients, preparations, and variants,
+and employing a BM25-based ranking, the system aims for more sophisticated
+search than traditional methods.
+
+Experimental evaluations revealed that while baselines (TF-IDF, SentenceBERT)
+showed higher general performance on subset queries, our developed model
+demonstrated superior robustness against performance degradation with larger
+datasets.
+Critically, it excelled at filtering adversarial queries, indicating strong
+effectiveness in handling incorrect unidirectional relationships.
+Furthermore, the developed model consistently achieved significantly faster
+query speeds, highlighting its potential for responsive retrieval systems.
+
+Despite these promising results, key limitations include the need for more
+comprehensive evaluation and training data, and further exploration of
+linguistic nuances like synonyms and hyponymy.
+Addressing ingredient composition (e.g., recognizing bread as a compound of
+flour and water) through graph-based databases also presents a compelling future
+research direction.
+Ultimately, this work underscores the significant potential of fine-grained
+semantic understanding, enabled by NER, to empower specialized information
+retrieval for more intuitive and flexible culinary exploration within LLM agent
+applications.
 
 \bibliography{references}
 
 \appendix
 \section{LLM Queries}\label{app:llm}
 \begin{itemize}
-\item \emph{``Summarize this ingredient list into a short query a person might type
-    into google''} and then further processed with the follow up query:
+\item \emph{``Summarize this ingredient list into a short query a person might
+    type into google''} and then further processed with the follow up query:
 
-    \emph{``could you expand upon the “google\_search\_query” field a bit, to make it “processed” as if a LLM had processed text as input to be used in a tool.
-        The input would be the string Title, as well as a list of strings “Ingredients”.
+    \emph{``could you expand upon the google\_search\_query field a bit, to make
+        it “processed” as if a LLM had processed text as input to be used in a
+        tool.
+        The input would be the string Title, as well as a list of strings
+        “Ingredients”.
         Could you from google\_search\_query, create another field,
-        google\_search\_query\_processed, which is an object with the following structure:
+        google\_search\_query\_processed, which is an object with the following
+        structure:
 \{
-“title”: String (title of the recipe, if present, e.g.\ ``millionaire pie''),
-“ingredients”: List[String (each ingredient and possible it’s preparations, seperated into a list of strings)]
+title: String (title of the recipe, if present, e.g.\ ``millionaire pie''),
+ingredients: List[String (each ingredient and possible it’s preparations,
+seperated into a list of strings)]
 \}''}
 \item \emph{``Extract only the main food items and their preparations from
     this list''}

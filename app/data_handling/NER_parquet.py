@@ -276,14 +276,28 @@ def create_parquet_file(parquet_path: str, df: pl.DataFrame,
     return parquet_path
 
 
-def construct_ingredient_query(pq_path: str, ingredients: list, preps: dict):
-    base_sql = f""" SELECT * FROM '{pq_path}' AS tbl
-                    WHERE list_has_all(tbl.tokens, {ingredients})
-                """
+def construct_ingredient_query(pq_path: str, ingredients: list, preps: dict,
+                               variants: dict | None = None,
+                               use_alt=False):
+    if not use_alt:
+        base_sql = f""" SELECT * FROM '{pq_path}' AS tbl
+                        WHERE list_has_all(tbl.tokens, {ingredients})
+                    """
+    else:
+        base_sql = f""" SELECT * FROM '{pq_path}' AS tbl
+                        WHERE list_has_all(tbl.tokens || tbl.alt_foods, {ingredients})
+                    """
     prep_filter = ""
     for i, (key, value) in enumerate(preps.items()):
         prep_filter += f"""AND map_contains(preps, '{key}')
                            AND list_has_all(preps['{key}'], {value})
                         """
     sql = base_sql + prep_filter
+    if variants:
+        var_filter = ""
+        for i, (key, value) in enumerate(variants.items()):
+            var_filter += f"""AND map_contains(varieties, '{key}')
+                              AND list_has_all(varieties['{key}'], {value})
+                           """
+        sql = sql + var_filter
     return sql
