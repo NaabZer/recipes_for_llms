@@ -126,64 +126,84 @@ containing over 2 million recipes, as well as
 700 recipes with ingredient-specific NER tags.
 
 A third dataset, made by relabeling some of the NER tags in the TASTEset dataset,
-as well as labeling some of the data in the RecipeNLG using the NER tags
-described in Section~\ref{sec:ner_tags} was also created by manually labeling
+as well as labeling 150 recipes from the RecipeNLG using the NER tags
+described in Section~\ref{sec:ner_tags}, was created by manually labeling
 data in Label Studio~\cite{LabelStudio}.
+This dataset contains 850 recipes, and X tokens and Y NER tags.
 
 \section{Method}
 To create and evaluate this uni-directional relationship based retrieval system, 
 
 \subsection{Evaluation Tasks}
-To see if the developed models performs the task of recipe retrieval from
-ingredients, some evaluation tasks are defined.
+To see how well the baselines and developed models perform the task of recipe
+retrieval, as well as how well the unidirectional relationship filtering works,
+a couple of evaluation tasks are defined.
 Two types of task is used in this paper, model performance and query speed.
-The first one to evaluate if the developed method works well, specifically in
-relation the the baselines.
+The first one to evaluate how well the models find relevant queryies.
 The second one to evaluate the speed of which these queries are handled, to
 gauge how suitable they are for different systems.
-For example, in a load heavy system that require low response times, model
-performance might be compromisable as long as the query speed remains low.
+%For example, in a load heavy system that require low response times, model
+%erformance might be compromisable as long as the query speed remains low.
 
 \subsubsection{Model Performance}\label{sec:modelperfomance}
-To evaluate the model performance, four different evaluation methods were
+To evaluate the model performance, nine different evaluation methods were
 created.
-All the tasks are evaluated using \emph{Accuray},
-\emph{Mean Reciprocal Rank (MRR)}, \emph{Recall@5}, to give a fair evaluation to
-a search/ranking task.
+All the tasks are evaluated using \emph{Mean Reciprocal Rank (MRR)} \emph{Top-K
+Accuracy}, to give a fair evaluation to search/ranking tasks.
 
-\paragraph{Identity Query} --- This tasks takes x amounts of random recipes
-and for each recipe, the ingredient list is inputted and the recipe should be
-returned.
-This task is used as a sanity check, as this tasks should in theory create the
-same embeddings for any embedding models, such as the TF-IDF baseline, and thus
-give those models 100\% accuracy.
+The queries are separated into two groups, subset queries and adversarial
+queries.
 
-\paragraph{LLM Processed Queries} --- This task uses 1000 random
+For the evaluation, there are two query dataset, one containing 50 recipes with
+four different hand crafted queries, as well as one containing 1000 recipes with
+four computer generated queries.
+For each of these queries, they are tested against three dataset, the same 1000
+recipes as the computer generated queries, as well as on datasets with 10k and
+100k recipes, where all the recipes in the queries are present, all of which
+are subsets of the \emph{RecipeNLG} datast.
+Due to time and hardware resource constrains, the queries were not tested on the
+entire dataset (running the processing on the entire dataset would take roughly
+40 hours for just one of the models).
+
+\paragraph{Subset Queries}
+These queries take the input recipes, and transform them into queries that
+contains as most as much information as the input, to see how well recipes are
+found using queries that contain less information than the recipe itself.
+These are tested using an identity query, three LLM generated queries, as well
+as two hand crafted queries as described below.
+
+\emph{Identity Query} --- This query simply queries the same recipe as the
+original recipe in the datapoints.
+This task is used as a sanity check, since we are querying the same data as we
+have processed for our models, it should give close to a perfect result.
+
+\emph{LLM Processed Queries} --- This task uses 1000 random
 recipes, and for each recipe, inputs the ingredient list to a LLM with several
 prompts to rephrase the input.
 This is used to mimic a more human like input, while leveraging the power of
-LLMs to quickly generate a larger dataset than e human annotated one.
+LLMs to quickly generate a larger dataset than a human annotated one.
 For each recipe, the following prompts are used, and each promp is then used as
 its own evaluation task:
 \begin{itemize}
-    \item \textbf{``Summarize this ingredient list into a short query a person might type
+    \item \emph{``Summarize this ingredient list into a short query a person might type
         into google''} --- This returns a more human-esque way of inputting a
         recipe, rather than a list of ingredients and instructions.
         Since text like this query, is supposed to be input into an LLM that
         then uses a processed input to a function, it was also asked to process
-        this sentence into a more structure format containing a title and a list
+        this sentence into a more structured format containing a title and a list
         of ingredients.
-    \item \textbf{``Extract only the main food items and their preparations from
+    \item \emph{``Extract only the main food items and their preparations from
         this list''} --- This returns a list that is more akin to the query a
         person (or program) is more likely to input to the model.
-    \item \textbf{``I have the following ingredients and some of their
+    \item \emph{``I have the following ingredients and some of their
             preparations. List the most important ingredients and their
         preparations I should use to search a recipe with''} --- This returns a
         list that is compromised only of the most important elements of the
         recipe.
 \end{itemize}
+Some examples of input and output is found in appendix X.
 
-\paragraph{Human Processed Queries} --- This task uses 50 random recipes, that
+\emph{Human Processed Queries} --- This task uses 50 random recipes, that
 are a subset of the previous task, and for each recipe, the author processed
 these list into a more human like input.
 For each list of ingredients, two different processing methods were used as
@@ -198,23 +218,35 @@ described below:
         into a list; for example ``drained
         and quartered artichoke hearts; smoked turkey breast, cubed''.
         This is used to see if filtering on particular preparations can find
-        very specific recipies.
-\end{itemize}o
-
-\paragraph{Negated Queries} --- For this task, the original ingredient data is
-transformed destructively to create a task where the objective is to \emph{not}
-be able to find the original recipe when inputting the transformed data.
-Since the task is inverted, so are the evaluation metrics, i.e.\ we use
-$1-\text{MRR}$ and $1-\text{P@5}$ to evaluate these tasks.
-
-The data is transformed in the following ways:
-\begin{itemize}
-    \item \textbf{Randomly add preparation steps} --- Random preparation steps
-        are appended to $40\%$ (minimum 1) of the lines in the ingredient list.
-        This tests how well we filter away recipes that does not contain the
-        preparations we have performed.
-    \item \textbf{something} --- something
+        very specific recipes.
 \end{itemize}
+
+\paragraph{Adversarial Queries} 
+To evaluate how well the unidirectional filtering works, three adversarial query
+tasks have been created.
+These are to mimic queries that include more specific information than the
+original recipe contains, meaning we do \emph{not} want to find the recipe in
+question.
+Because of this relationship, the metrics used for these tasks are inverted,
+i.e.\ we use $1-MRR$ and $1-\text{Top-K Accuracy}$ for these queries.
+This is tested using one automatically generated query, as well as two hand
+crafted queries 
+
+\emph{Automatically added preparation suffixes} --- This query takes a list of
+common preparation suffixes, such as ``, chopped'' and ``, sliced'', and append
+them to 40\% (minimum 1) of random ingredients in the ingredient list for each
+recipe in the 1000 queries dataset.
+This is to see how well the model filters away these recipes when adding extra
+preparations that are not present in the original data.
+
+\emph{Human annotated adversarial data} --- These two queries takes the
+\emph{ingredient list} human annotated data, and adds variants or preparations
+to roughly 40\% of the input that directly opposes the variants or preparations
+used in the original data, e.g.\ if the original data has ``roma tomatoes,
+chopped'', the new data might have ``cherry tomatoes, sliced''.
+One dataset contains all the ingredients, while the other dataset contains a
+subset of only the ingredients that have been modified.
+
 
 
 \subsubsection{Query Speed}
@@ -222,16 +254,26 @@ Another important part of information retrieval systems is query speed,
 therefore query speeds are also measured on all the tasks described in
 Section~\ref{sec:modelperfomance}.
 
-\subsection{Baselines}
-\subsubsection{BOW (tfidf)}
+\subsection{Baselines models}
+To get some idea of how performant the developed model is, two simple to
+implement, but well regarded, baseline are implemented.
+One TF-IDF embedding model~\cite{tfidf} trained on the entire \emph{RecipeNLG}
+dataset, as well as a SentenceBERT~\cite{sentence-bert} embedding model.
 
-\subsubsection{SentenceBERT embeddings}
+Both of these models are used to create embeddings for each recipe on the entire
+ingredient list.
+When querying, the query is embedded using the same model, and the entire
+dataset is then ranked based on the cosine similarity between the orignal
+embeddings and the query embedding.
+The final ranked dataset is then used for the evaluation.
 
-\subsection{NER based parquet + duckdb database with custom scoring function}
-
+\subsection{NER based database model}
 \subsubsection{NER Tags}\label{sec:ner_tags}
+\subsubsection{Ranking}
 
-\subsection{Ranking}
+
+
+\iffalse{}
 We need some way to perform ranking of the different models.
 When using embeddings ranking gets trivial because we will use similarity
 measures as our mean of searching either way.
@@ -262,8 +304,7 @@ This does however raise the question, is a tfidf that also make use of our NER
 tags to filter out results we do not want to see, sufficient? Maybe even more
 efficient?
 I also want to create a model using tfidf and filtering methods.
-\subsection{NER Model}
-\subsubsection{Labeling}
+\fi
 
 \section{Results}
 \section{Discussion}
