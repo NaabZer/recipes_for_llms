@@ -135,237 +135,166 @@ This dataset contains 850 recipes, and X tokens and Y NER tags.
 To create and evaluate this uni-directional relationship based retrieval system, 
 
 \subsection{Evaluation Tasks}
-To see how well the baselines and developed models perform the task of recipe
-retrieval, as well as how well the unidirectional relationship filtering works,
-a couple of evaluation tasks are defined.
-Two types of task is used in this paper, model performance and query speed.
-The first one to evaluate how well the models find relevant queryies.
-The second one to evaluate the speed of which these queries are handled, to
-gauge how suitable they are for different systems.
-%For example, in a load heavy system that require low response times, model
-%erformance might be compromisable as long as the query speed remains low.
+Evaluation tasks are defined to assess baseline and developed model performance
+in recipe retrieval, including unidirectional relationship filtering.
+Two primary task types are used: model performance, evaluating retrieval
+effectiveness, and query speed, gauging suitability for different systems based
+on query handling time.
 
 \subsubsection{Model Performance}\label{sec:modelperfomance}
-To evaluate the model performance, nine different evaluation methods were
-created.
-All the tasks are evaluated using \emph{Mean Reciprocal Rank (MRR)} \emph{Top-K
-Accuracy}, to give a fair evaluation to search/ranking tasks.
-
-The queries are separated into two groups, subset queries and adversarial
-queries.
-
-For the evaluation, there are two query dataset, one containing 50 recipes with
-four different hand crafted queries, as well as one containing 1000 recipes with
-four computer generated queries.
-For each of these queries, they are tested against three dataset, the same 1000
-recipes as the computer generated queries, as well as on datasets with 10k and
-100k recipes, where all the recipes in the queries are present, all of which
-are subsets of the \emph{RecipeNLG} datast.
-Due to time and hardware resource constrains, the queries were not tested on the
-entire dataset (running the processing on the entire dataset would take roughly
-40 hours for just one of the models).
-
+Model performance was evaluated using nine distinct methods, primarily assessed
+by Mean Reciprocal Rank (MRR) and Top-K Accuracy.
+Queries were categorized into two groups: subset and adversarial.
+Evaluation utilized two query datasets: 50 recipes with four hand-crafted
+queries, and 1000 recipes with four computer-generated queries.
+These were tested against three target datasets (1k, 10k, 100k recipes), all
+\emph{RecipeNLG} subsets that ensured query recipe presence.
+Full dataset testing was omitted due to time and hardware constraints.
 \paragraph{Subset Queries}
-These queries take the input recipes, and transform them into queries that
-contains as most as much information as the input, to see how well recipes are
-found using queries that contain less information than the recipe itself.
-These are tested using an identity query, three LLM generated queries, as well
-as two hand crafted queries as described below.
+Subset queries evaluate how well recipes are found using queries containing less information than the full recipe.
+These include an identity query, three LLM-generated queries, and two hand-crafted queries.
 
-\emph{Identity Query} --- This query simply queries the same recipe as the
-original recipe in the datapoints.
-This task is used as a sanity check, since we are querying the same data as we
-have processed for our models, it should give close to a perfect result.
+\emph{Identity Query} --- This query directly uses the original recipe as input, serving as a sanity check for near-perfect results.
 
-\emph{LLM Processed Queries} --- This task uses 1000 random
-recipes, and for each recipe, inputs the ingredient list to a LLM with several
-prompts to rephrase the input.
-This is used to mimic a more human like input, while leveraging the power of
-LLMs to quickly generate a larger dataset than a human annotated one.
-For each recipe, the following prompts are used, and each promp is then used as
-its own evaluation task:
-\begin{itemize}
-    \item \emph{``Summarize this ingredient list into a short query a person might type
-        into google''} --- This returns a more human-esque way of inputting a
-        recipe, rather than a list of ingredients and instructions.
-        Since text like this query, is supposed to be input into an LLM that
-        then uses a processed input to a function, it was also asked to process
-        this sentence into a more structured format containing a title and a list
-        of ingredients.
-    \item \emph{``Extract only the main food items and their preparations from
-        this list''} --- This returns a list that is more akin to the query a
-        person (or program) is more likely to input to the model.
-    \item \emph{``I have the following ingredients and some of their
-            preparations. List the most important ingredients and their
-        preparations I should use to search a recipe with''} --- This returns a
-        list that is compromised only of the most important elements of the
-        recipe.
-\end{itemize}
-Some examples of input and output is found in appendix X.
+\emph{LLM Processed Queries} --- Using 1000 random recipes, ingredient lists
+were rephrased by an LLM to mimic human input and rapidly generate a large query
+dataset.
+Each rephrasing prompt formed its own evaluation task: first, a
+``Summarize\ldots'' prompt generated a human-esque natural language query,
+subsequently structured into title and ingredient list formats; second, an
+``Extract only the main food items\ldots'' prompt produced a focused list of
+core ingredients and their preparations; and third, an ``I have the following
+ingredients\ldots List the most important\ldots'' prompt created a list of only
+the most crucial recipe elements.  
 
-\emph{Human Processed Queries} --- This task uses 50 random recipes, that
-are a subset of the previous task, and for each recipe, the author processed
-these list into a more human like input.
-For each list of ingredients, two different processing methods were used as
-described below:
-\begin{itemize}
-    \item \textbf{A list of ingredients} --- for example ``Cucumber,
-        sun-dried tomatoes, onion and ground beef'', mostly without preparations
-        unless they are too core to the recipe, e.g.\ ``ground'' beef.
-        This is to mimic a sample input of ``I have X food, what can I cook with it''
-    \item \textbf{A list of prepared key ingredients} --- in this list the core
-        and most unusal ingredients, with all of their preparations are compiled
-        into a list; for example ``drained
-        and quartered artichoke hearts; smoked turkey breast, cubed''.
-        This is used to see if filtering on particular preparations can find
-        very specific recipes.
-\end{itemize}
+For full prompts and examples of returned data, see Appendix~\ref{app:llm}.
 
-\paragraph{Adversarial Queries} 
-To evaluate how well the unidirectional filtering works, three adversarial query
-tasks have been created.
-These are to mimic queries that include more specific information than the
-original recipe contains, meaning we do \emph{not} want to find the recipe in
-question.
-Because of this relationship, the metrics used for these tasks are inverted,
-i.e.\ we use $1-MRR$ and $1-\text{Top-K Accuracy}$ for these queries.
-This is tested using one automatically generated query, as well as two hand
-crafted queries 
+\emph{Human Processed Queries} --- For 50 recipes (a subset of the LLM task's
+recipes), the author manually created more human-like inputs using two methods:
+a general list of ingredients, typically without preparations unless core (e.g.,
+``ground'' beef), designed to mimic inputs like ``What can I cook with X
+food''; and a list of prepared key ingredients, focusing on core and unusual
+components with all their preparations (e.g., ``drained and quartered artichoke
+hearts''), intended to test retrieval of very specific recipes.
 
-\emph{Automatically added preparation suffixes} --- This query takes a list of
-common preparation suffixes, such as ``, chopped'' and ``, sliced'', and append
-them to 40\% (minimum 1) of random ingredients in the ingredient list for each
-recipe in the 1000 queries dataset.
-This is to see how well the model filters away these recipes when adding extra
-preparations that are not present in the original data.
+\paragraph{Adversarial Queries}
+To evaluate unidirectional filtering, three adversarial query tasks were created.
+These queries mimic inputs containing more specific information than the
+original recipe, aiming \emph{not} to retrieve the original.
+Consequently, metrics are inverted: $1-MRR$ and $1-\text{Top-K Accuracy}$.
+These tasks comprise one automatically generated query and two hand-crafted queries.
 
-\emph{Human annotated adversarial data} --- These two queries takes the
-\emph{ingredient list} human annotated data, and adds variants or preparations
-to roughly 40\% of the input that directly opposes the variants or preparations
-used in the original data, e.g.\ if the original data has ``roma tomatoes,
-chopped'', the new data might have ``cherry tomatoes, sliced''.
-One dataset contains all the ingredients, while the other dataset contains a
-subset of only the ingredients that have been modified.
+\emph{Automatically added preparation suffixes} --- This query type appends
+common preparation suffixes (e.g., ``, chopped'', ``, sliced'') to 40\% (minimum
+1) of random ingredients in the 1000-query dataset.
+This tests the model's ability to filter out recipes lacking the added preparations.
 
-
+\emph{Human annotated adversarial data} --- These two queries involve adding
+variants or preparations to roughly 40\% of the human-annotated ingredient list
+data that directly oppose the original (e.g., ``roma tomatoes, chopped''
+becoming ``cherry tomatoes, sliced'').
+One dataset includes all ingredients, while the other contains only the modified
+ingredients.
 
 \subsubsection{Query Speed}
-Another important part of information retrieval systems is query speed,
-therefore query speeds are also measured on all the tasks described in
-Section~\ref{sec:modelperfomance}.
+Query speed is a critical metric for assessing the practical viability of
+information retrieval systems~\cite{manning2009introduction}.
+Therefore, query execution times are measured across all tasks detailed in
+Section~\ref{sec:modelperfomance} to determine system suitability for various
+operational demands.
 
-\subsection{Baselines models}
-To get some idea of how performant the developed model is, two simple to
-implement, but well regarded, baseline are implemented.
-One TF-IDF embedding model~\cite{tfidf} trained on the entire \emph{RecipeNLG}
-dataset, as well as a SentenceBERT~\cite{sentence-bert} embedding model.
-
-Both of these models are used to create embeddings for each recipe on the entire
-ingredient list.
-When querying, the query is embedded using the same model, and the entire
-dataset is then ranked based on the cosine similarity between the orignal
-embeddings and the query embedding.
-The final ranked dataset is then used for the evaluation.
+\subsection{Baseline Models}
+To establish a performance benchmark, two computationally efficient yet
+well-regarded baselines were implemented: a TF-IDF embedding model~\cite{tfidf}
+trained on the entire \emph{RecipeNLG} dataset after lemmatization, and a
+SentenceBERT embedding model~\cite{sentence-bert}.
+Both models generate embeddings for each recipe's full ingredient list.
+For querying, the input query is embedded using the respective model, and the
+entire dataset is ranked based on the cosine similarity between the query
+embedding and the original recipe embeddings.
+This ranked dataset is then used for evaluation.
 
 \subsection{NER based database model}
-This is proposed model specifically developed for this project.
-The system as a whole, uses a custom trained NER model, trained on recipe data,
-to extract the different elements of an ingredient list and then constructs a
-database saved as a parquet~\footnote{\url{https://parquet.apache.org}} file,
-which is then queried using DuckDB~\cite{duckdb}.
+This proposed model, specifically developed for this project, leverages a custom
+NER model trained on recipe data.
+It extracts ingredient list elements to construct a database, stored as a
+Parquet~\footnote{\url{https://parquet.apache.org}} file and queried using
+DuckDB~\cite{duckdb}.
 
 \subsubsection{NER Tags}\label{sec:ner_tags}
-The original idea for the creation of a NER model for recipes came from a blog
-post by~\citet{ingNerwb}, training a NER model on the \emph{TasteSET} dataset.
-Looking at this dataset however, the tags were insufficient.
-Thus this blog post and dataset were used as a base to create new NER tags, and
-the entire \emph{TasteSET} dataset was relabled using these new tags:
-\begin{enumerate}
-    \item \emph{Quantity}. Quantity of unit
-    \item \emph{Unit}. Unit, e.g.\ ``can'' or ``lbs''
-    \item \emph{Food}. Actual food item, e.g.\ ``Tomato'' or ``Chicken''
-    \item \emph{Variety}. Variety of food, e.g.\ ``Roma'' or ``whole grain''
-    \item \emph{Preparation}. Preparation of food, e.g.\ ``finely sliced'' or
-        ``boiled''
-    \item \emph{Alteration}. Reversible change in food, e.g. ``Frozen'', ``Room
-        temp''
-    \item \emph{Brand}. Brand, e.g.\ ``Hershey's'' or ``Santa Maria''
-    \item \emph{Optional}. If ingredient is optional, almost exclusively by
-        seeing if the word ``optional'' is written on the line.
-    \item \emph{State}. State which the user could not affect in any way, e.g.\
-        ``Large'' (as in ``Large egg'') or ``Fresh'' (as in ``Fresh
-        strawberries'')
-\end{enumerate}
+The custom NER model was developed by refining an initial concept from a blog
+post~\cite{ingNerwb} that used the \emph{TasteSET} dataset.
+Finding the original \emph{TasteSET} tags insufficient, a new set of NER tags
+was created and used to relabel the entire \emph{TasteSET} dataset, as well as
+portions of \emph{RecipeNLG}.
+These nine custom tags include: \emph{Quantity} (amount of unit); \emph{Unit}
+(e.g., ``can'', ``lbs''); \emph{Food} (actual item, e.g., ``Tomato'',
+``Chicken''); \emph{Variety} (food variant, e.g., ``Roma'', ``whole grain'');
+\emph{Preparation} (food processing, e.g., ``finely sliced''); \emph{Alteration}
+(reversible change, e.g., ``Frozen''); \emph{Brand} (e.g., ``Hershey's'');
+\emph{Optional} (if ingredient is optional); and \emph{State} (user-unaffectable
+condition, e.g., ``Large egg'', ``Fresh strawberries'').
 
-The \emph{Quantity}, \emph{Unit} and \emph{Food} tag are almost exclusively
-directly taken from \emph{TasteSet}, whereas the rest have slighltly different
-nuances.
-These tags where created to correctly label the properties we are interested in
-when querying, while adding some extra labels to avoid mislabeling of those
-labels.
-The labels that are the most interesting is \emph{Food}, \emph{Variety}, and
-\emph{Preparation}, in some cases also \emph{Optional} and {Brand}.
-The Labels \emph{Alteration} and \emph{State} is mainly used to make sure
-processes that are actually reversible are not labeled as preparation, or
-irrelevant states are not labeled as variants.
-For example, if something is frozen, we can thaw it, therefore frozen
-raspberries should be able to be used in a recipe with raspberries and vice
-versa.
+While \emph{Quantity}, \emph{Unit}, and \emph{Food} tags largely align with
+\emph{TasteSET}, others incorporate nuanced distinctions.
+These tags were designed to accurately label properties relevant for querying,
+with \emph{Food}, \emph{Variety}, and \emph{Preparation} being most central,
+alongside \emph{Optional} and \emph{Brand} in some cases.
+\emph{Alteration} and \emph{State} primarily ensure reversible processes are not
+mislabeled as preparations, and irrelevant states are not conflated with
+variants.
+For instance, frozen raspberries should match recipes requiring raspberries, as
+freezing is reversible.
 
-This tagged data is then used to train a spaCy~\cite{spacy} NER model, that
-extracts these NER tags from texts.
+This tagged data then trained a spaCy~\cite{spacy} NER model to extract these tags from text.
 
-\subsubsection{Database structure}\label{sec:dbStructure}
-To leverage our unidirectional relationships and have a queryable system, the
-recipes in our evaluation datasets are processed in the following way:
-\begin{enumerate}
-    \item The ingredient lists is passed through our NER model, one line at the
-        time.
-    \item Each line then has the following processing steps:
-        \begin{enumerate}
-            \item Extract any food tag found, lemmatize each token and append
-                any multi-token food with underscores between (e.g.\
-                ``olive\_oil'').
-            \item Preparations, Variants, and Brands are extracted into maps,
-                mapping food to a list containing each lemmatized token in the
-                respective category \\(e.g.\ \{``tomato'':\ [``slice'',\
-                ``fine'']\}).
-            \item Only the first food item is considered as a food, if any other
-                food items are found on the same line, these are added to
-                another list of alternate foods.
-            \item If there is any Optional entity in the line, the entire line
-                is marked as optional.
-        \end{enumerate}
-    \item All the items processed in step 2 are then collected into lists of food, 
-        alternate food, and optional, as well as maps for the three maps described in
-        step 2.b.
-\end{enumerate}
-The above processes is run for each recipe in the data, and then saved to a
-\emph{parquet} file, where the original recipe information, as well as the six newly
-added columns is saved.
-
-Note: In step 2.a, food items such as \emph{salt} and \emph{water} that are
-assumed to almost always be present is filtered away.
+\subsubsection{Database creation}\label{sec:dbStructure}
+To establish a queryable system leveraging unidirectional relationships, recipes
+from our evaluation datasets are processed as follows: Each ingredient line is
+first passed through our NER model.
+Within each line, food tags are extracted, lemmatized, and multi-token foods are
+appended with underscores (e.g., ``olive\_oil'')..
+During this extraction, common items such as \emph{salt} and \emph{water},
+assumed to be almost always present, are filtered out.
+Preparations, Variants, and Brands are then extracted into maps, associating
+each food item with a list of its respective lemmatized tokens (e.g.,
+\{``tomato'': [``slice'', ``fine'']\}).
+Only the first food item on a line is considered primary; any other food items
+found on the same line are added to a list of alternate foods.
+If an Optional entity is present, the entire line is marked as optional.
+Finally, all collected items (primary food, alternate food, optional lists, and
+the three maps) for each recipe are saved alongside original recipe information
+as six newly added columns in a
+Parquet~\footnote{\url{https://parquet.apache.org}} file, queried using
+DuckDB~\cite{duckdb}.
 
 \subsubsection{Querying}
-To query the database, DuckDB queries are used.
-First the data to be used as a query is run through the same processing steps as
-explained in Section~\ref{sec:dbStructure}, these lists and maps are then used
-to dynamically generate a DuckDB SQL query, only selecting data where all food
-items in the query exists in the database.
-If any preparations or variants are present, only data where the
-preparations/variants found in the query is selected, by seeing if all
-preparation token for each food that has a preparation in the query, also exists
-in the database.
-For example if our query contains the preparation \{``tomato'': [``slice'']\},
-we will match data containing the preparation \{``tomato'': [``slice'',
-``fine'']\}, but not \{``tomato'': [``chop'']\}.
+Database queries are executed using DuckDB\@.
+Query input first undergoes the same processing steps detailed in
+Section~\ref{sec:dbStructure}.
+These processed lists and maps then dynamically generate a DuckDB SQL query,
+selecting only data where all specified food items exist in the database.
+If preparations or variants are present, selection further requires that all
+corresponding preparation tokens for each food in the query also exist in the
+database.
+For example, a query containing \{``tomato'': [``slice'']\} will match data with
+\{``tomato'': [``slice'', ``fine'']\}, but not \{``tomato'': [``chop'']\}.
+For testing, several query types were evaluated: combinations of food and
+preparations, food with preparations and variants, and both of these repeated
+with alternate food items joined.
 
-For the testing, several different queries were tested, one with only food and
-prepartions, one with food, preparation and variants, both of these were then
-repeated while joining alternate food into the list of food.
+Example queries are detailed in Appendix X.
 
-Some example queries can be seen in appendix X.
+\subsubsection{Ranking}
+After querying, the returned data is an unranked subset requiring relevancy
+sorting.
+To rank this data, the \emph{BM25} algorithm, commonly used for search ranking,
+is applied.
+This involves creating a BM25 corpus from the processed food tokens (as
+described in Section~\ref{sec:dbStructure}) and then ranking the results using
+the food tokens extracted from the query.
+While the model's output typically comprises the top recipes, the entire ranked
+result is used for evaluation purposes.
 
 \subsubsection{Ranking}
 After running the query, the data returned is a subset of all the data matching
@@ -421,6 +350,28 @@ I also want to create a model using tfidf and filtering methods.
 \section{Conclusion}
 
 \bibliography{references}
+
+\appendix
+\section{LLM Queries}\label{app:llm}
+\begin{itemize}
+\item \emph{``Summarize this ingredient list into a short query a person might type
+    into google''} and then further processed with the follow up query:
+
+    \emph{``could you expand upon the “google\_search\_query” field a bit, to make it “processed” as if a LLM had processed text as input to be used in a tool.
+        The input would be the string Title, as well as a list of strings “Ingredients”.
+        Could you from google\_search\_query, create another field,
+        google\_search\_query\_processed, which is an object with the following structure:
+\{
+“title”: String (title of the recipe, if present, e.g.\ ``millionaire pie''),
+“ingredients”: List[String (each ingredient and possible it’s preparations, seperated into a list of strings)]
+\}''}
+\item \emph{``Extract only the main food items and their preparations from
+    this list''}
+\item \emph{``I have the following ingredients and some of their
+        preparations. List the most important ingredients and their
+    preparations I should use to search a recipe with''} 
+\end{itemize}
+
 
 
 \end{document}
