@@ -45,48 +45,33 @@
 \begin{abstract}
     lorem ipsum
 \end{abstract}
-
 \section{Introduction}
-\section{Introduction}
-Recently, there has been a significant increase of applications leveraging LLM
-agents to perform diverse tasks.
-Many of these applications make use of Retrieval Augmented Generation (RAG),
-which involves dynamically loading data into an LLM query without explicit user
-command or visibility.
-This enables LLMs to process more accurate and specific results.
-In this work, this concept is applied specifically to recipes, with the aim of
-creating a system to search through recipes using ingredients.
-This system can then be leveraged by an LLM agent to perform queries such as
-returning recipes or serving as a reference when creating new ones.
-
-Ingredient lists for recipes possess characteristics that are particularly
-relevant for developing a more nuanced search algorithm.
-Among these, preparations and variants are of specific interest.
-Preparations refer to how food is prepared (e.g., ``2 Tomatoes, \emph{chopped
-into cubes}'' or ``3 red onions \emph{sliced thinly}''), while variants denote
-specific ingredient variations (e.g., ``3 \emph{Roma} tomatoes'' or ``1 large
-\emph{granny smith} apple'').
-
-Typically, when searching for recipes, a user would most likely input general
-terms such as ``tomatoes'' or ``apples'' to find recipes containing those
+Recent advancements in LLM agents, often leveraging Retrieval Augmented
+Generation (RAG)~\cite{RAG}, enable more accurate and specific data processing
+for diverse tasks.
+This work applies these principles to recipe search, aiming to create a system
+that allows LLM agents to find and reference recipes based on their
 ingredients.
-However, in scenarios where a user has, for instance, excess sliced red onions
-and seeks a specific recipe for their utilization, or harbors a preference for
-the tartness of Granny Smith apples and desires tailored inspiration, a more
-sophisticated search capability becomes desirable.
-Nevertheless, forcing the search query to be overly specific (e.g., for ``sliced
-red onions'') is often counterproductive, as general ingredients (like red
-onions) can be prepared as needed.
-Similarly, for general ingredient searches (e.g., apples), recipes are likely to
-remain satisfactory even if a specific variant (like Granny Smith) is not
-precisely matched.
 
-This work operationalizes this concept by utilizing ingredient-list-specific
-Named Entity Recognition (NER) tags to establish uni-directional relationships
-between ingredients and their associated preparations and variants.
-This approach aims to demonstrate how fine-grained semantic understanding,
-enabled by NER, can significantly enhance recipe retrieval systems, paving the
-way for more intuitive and flexible culinary exploration tools.
+While conventional recipe searches typically focus on broad ingredient matching
+(e.g., ``tomatoes'') they often overlook the nuanced needs stemming from
+specific ingredient preparations (e.g., ``chopped into cubes'') or varietals
+(e.g., ``Roma'' tomatoes).
+A user might desire recipes specifically for ``sliced red onions'' to utilize
+excess ingredients, or seek inspiration for ``Granny Smith'' apples due to a
+particular preference.
+However, an effective search must also understand that a general ingredient
+(e.g., ``red onions'') can be prepared as needed, and a specific variant (e.g.,
+``Granny Smith'') may not be strictly essential for a recipe.
+This dynamic relationship, where a specific ingredient implies its general form,
+presents a key challenge for traditional retrieval systems.
+
+This work addresses this challenge by utilizing ingredient-list-specific Named
+Entity Recognition (NER) tags to establish uni-directional relationships
+between ingredients, their preparations, and variants.
+This fine-grained semantic understanding, enabled by NER, significantly
+enhances recipe retrieval systems, fostering more intuitive and flexible
+culinary exploration tools.
 
 \section{Theory}
 To understand all parts of this report, some theory for things not discussed in
@@ -167,7 +152,9 @@ core ingredients and their preparations; and third, an ``I have the following
 ingredients\ldots List the most important\ldots'' prompt created a list of only
 the most crucial recipe elements.  
 
-For full prompts and examples of returned data, see Appendix~\ref{app:llm}.
+For full prompts, see Appendix~\ref{app:llm}. For final data, see the publicly
+available associated git
+repository.\footnote{\url{https://github.com/NaabZer/recipes_for_llms/blob/main/data/eval_data/processed_data.json}}
 
 \emph{Human Processed Queries} --- For 50 recipes (a subset of the LLM task's
 recipes), the author manually created more human-like inputs using two methods:
@@ -176,6 +163,9 @@ a general list of ingredients, typically without preparations unless core (e.g.,
 food''; and a list of prepared key ingredients, focusing on core and unusual
 components with all their preparations (e.g., ``drained and quartered artichoke
 hearts''), intended to test retrieval of very specific recipes.
+
+For human annotated data, see the publicly available associated git
+repository.\footnote{\url{https://github.com/NaabZer/recipes_for_llms/blob/main/data/eval_data/human_annotations.json}} 
 
 \paragraph{Adversarial Queries}
 To evaluate unidirectional filtering, three adversarial query tasks were created.
@@ -295,55 +285,6 @@ described in Section~\ref{sec:dbStructure}) and then ranking the results using
 the food tokens extracted from the query.
 While the model's output typically comprises the top recipes, the entire ranked
 result is used for evaluation purposes.
-
-\subsubsection{Ranking}
-After running the query, the data returned is a subset of all the data matching
-our query, but it is not ranked in any way.
-Given that the system is supposed to return the most relevant recipes for our
-query, the data needs to be sorted in relevancy.
-To rank the data, the \emph{SM25} algorithm that is commonly used for search
-ranking is used.
-The way it is used is by creating a SM25 corpus on the processed food tokens
-created as described in Section~\ref{sec:dbStructure}, and then using this
-corpus to rank the results using the food tokens extracted before running the
-query.
-
-The top recipes of these ranked results is then the output of our model.
-For evaluation purposes, the entire ranked result is used.
-
-
-\iffalse{}
-We need some way to perform ranking of the different models.
-When using embeddings ranking gets trivial because we will use similarity
-measures as our mean of searching either way.
-A problem arise when we want to use normal database queries, as there is no way
-to rank based of queries.
-We can ofcourse sort by something like recipe rating, giving us the highest
-rated recipes rather than the most relevant recipes (highest rated might be most
-relevant).
-
-An idea for how to rank the standar query version, is to use a score, similar to
-tfidf for how many of the ingredients that is in the recipe, is in the query,
-and negative score for any ingridient in the recipe that is not in the query.
-For example if you have something like ``chopped tomato, parsley and tomato
-paste'' as the query, you would add to the score for tomato, parsley and tomato
-paste and any other ingredient would reduce the score.
-The way something similar to tfidf can be used, is to decide how much the score
-is affected by an ingredient, something like salt and pepper should not affect
-the score too much, as these are prevalent in a lot of recipes and most likely
-not something you would add to your query at all.
-Using this, we could also assign scores to preparation steps, but this might be
-redundant, as we will remove any recipe which does not contain the preparation
-present in our query, and the point is you should be able to perform the
-preparations if it is not already prepared.
-In the above example, we would not find any recipes containing non-chopped
-tomatoes, and if they are cooked as well, we can just cook our chopped tomatoes.
-
-This does however raise the question, is a tfidf that also make use of our NER
-tags to filter out results we do not want to see, sufficient? Maybe even more
-efficient?
-I also want to create a model using tfidf and filtering methods.
-\fi
 
 \section{Results}
 \section{Discussion}
