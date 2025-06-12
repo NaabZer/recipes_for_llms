@@ -315,7 +315,7 @@ versa.
 This tagged data is then used to train a spaCy~\cite{spacy} NER model, that
 extracts these NER tags from texts.
 
-\subsubsection{Database structure}
+\subsubsection{Database structure}\label{sec:dbStructure}
 To leverage our unidirectional relationships and have a queryable system, the
 recipes in our evaluation datasets are processed in the following way:
 \begin{enumerate}
@@ -348,8 +348,39 @@ Note: In step 2.a, food items such as \emph{salt} and \emph{water} that are
 assumed to almost always be present is filtered away.
 
 \subsubsection{Querying}
-\subsubsection{Ranking}
+To query the database, DuckDB queries are used.
+First the data to be used as a query is run through the same processing steps as
+explained in Section~\ref{sec:dbStructure}, these lists and maps are then used
+to dynamically generate a DuckDB SQL query, only selecting data where all food
+items in the query exists in the database.
+If any preparations or variants are present, only data where the
+preparations/variants found in the query is selected, by seeing if all
+preparation token for each food that has a preparation in the query, also exists
+in the database.
+For example if our query contains the preparation \{``tomato'': [``slice'']\},
+we will match data containing the preparation \{``tomato'': [``slice'',
+``fine'']\}, but not \{``tomato'': [``chop'']\}.
 
+For the testing, several different queries were tested, one with only food and
+prepartions, one with food, preparation and variants, both of these were then
+repeated while joining alternate food into the list of food.
+
+Some example queries can be seen in appendix X.
+
+\subsubsection{Ranking}
+After running the query, the data returned is a subset of all the data matching
+our query, but it is not ranked in any way.
+Given that the system is supposed to return the most relevant recipes for our
+query, the data needs to be sorted in relevancy.
+To rank the data, the \emph{SM25} algorithm that is commonly used for search
+ranking is used.
+The way it is used is by creating a SM25 corpus on the processed food tokens
+created as described in Section~\ref{sec:dbStructure}, and then using this
+corpus to rank the results using the food tokens extracted before running the
+query.
+
+The top recipes of these ranked results is then the output of our model.
+For evaluation purposes, the entire ranked result is used.
 
 
 \iffalse{}
